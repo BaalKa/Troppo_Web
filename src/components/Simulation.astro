@@ -120,7 +120,7 @@
           <g class="labels" font-weight="600">
             <text x="30" y="45" fill="#61E1E6" opacity="0.55" font-size="10" letter-spacing="1">OCÉANO PACÍFICO</text>
             <text x="475" y="245" fill="#044559" font-size="8" text-anchor="end" opacity="0.6">Rotonda</text>
-            <text x="795" y="228" fill="#044559" font-size="9" text-anchor="end" font-weight="700" letter-spacing="0.5">CORREDOR LOGÍSTICO</text>
+            <text x="795" y="228" fill="#044559" font-size="9" text-anchor="end" font-weight="700" letter-spacing="0.5">RUTA LOGÍSTICA</text>
             <text x="795" y="128" fill="#044559" font-size="8" text-anchor="end" opacity="0.65">Ruta Norte</text>
             <text x="795" y="328" fill="#044559" font-size="8" text-anchor="end" opacity="0.65">Ruta Sur</text>
             <text x="524" y="14" fill="#044559" font-size="8" opacity="0.65">Vía Central</text>
@@ -718,7 +718,7 @@
     {
       id: 'jam',
       title: 'Congestión sin IA',
-      desc: 'Sin coordinación de semáforos, los camiones frenan al entrar a la rotonda y la cola se acumula por todo el corredor logístico.',
+      desc: 'Sin coordinación de semáforos, los camiones frenan al entrar a la rotonda y la cola se acumula por toda la ruta logística.',
       hud: 'CONGESTIÓN',
       hudTone: 'bad',
       signals: { north: 'green', south: 'green', east: 'green' },
@@ -753,7 +753,7 @@
     {
       id: 'contingency',
       title: 'Contingencia manejada',
-      desc: 'Un accidente bloquea la Ruta Norte en ambos sentidos. Los vehículos se acumulan antes del incidente y la IA redirige por corredor y sur.',
+      desc: 'Un accidente bloquea la Ruta Norte en ambos sentidos. Los vehículos se acumulan antes del incidente y la IA redirige por la ruta logística y la Ruta Sur.',
       hud: 'REDIRECCIONANDO',
       hudTone: 'warn',
       signals: { north: 'red', south: 'green', east: 'green' },
@@ -769,9 +769,9 @@
     },
     {
       id: 'bimodal',
-      title: 'Bimodal: carga + livianos',
-      desc: 'La IA prioriza el corredor logístico para camiones mientras los autos siguen fluidos por rutas secundarias.',
-      hud: 'PRIORIDAD BIMODAL',
+      title: 'Carga + livianos',
+      desc: 'La IA prioriza la ruta logística para camiones mientras los autos siguen fluidos por rutas secundarias.',
+      hud: 'PRIORIDAD DE CARGA',
       hudTone: 'good',
       signals: { north: 'green', south: 'green', east: 'green' },
       alert: false,

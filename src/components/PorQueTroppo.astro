@@ -2,36 +2,35 @@
 // Sección 4 rúbrica — "Por qué Troppo es mejor que sus competidores"
 //
 // Concepto visual: el ciclo completo Simular → Analizar → Optimizar con IA
-// → Monitorear en tiempo real, con marcador de dónde las herramientas
-// tradicionales se detienen (después del paso 2), y arrow de loop-back
-// mostrando que Troppo cierra el círculo.
+// → Monitorear y operar en tiempo real, con etiquetas neutrales que separan
+// las etapas (simulación y análisis / optimización y operación).
 
 const pasos = [
   {
     num: '01',
-    titulo: 'Probar',
-    desc: 'Reconstruimos la red vial en el gemelo digital y evaluamos escenarios sin tocar la calle real.',
+    titulo: 'Simular para probar',
+    desc: 'La red vial se representa en una simulación para evaluar distintos escenarios de forma virtual, sin realizar cambios en la infraestructura existente.',
     troppoOnly: false,
     icon: 'test',
   },
   {
     num: '02',
     titulo: 'Analizar',
-    desc: 'Comparamos los resultados de cada ejecución: espera, flujo, emisiones, distribución de vehículos.',
+    desc: 'Puedes comparar los resultados de cada ejecución: espera, flujo, emisiones y distribución de vehículos.',
     troppoOnly: false,
     icon: 'chart',
   },
   {
     num: '03',
     titulo: 'Optimizar con IA',
-    desc: 'Con el aprendizaje por refuerzo generamos nuevas políticas de semaforización que superan a las reglas fijas.',
+    desc: 'Con aprendizaje por refuerzo, la IA evalúa alternativas y recomienda ubicaciones de semáforos que contribuyan a reducir la congestión.',
     troppoOnly: true,
     icon: 'ai',
   },
   {
     num: '04',
-    titulo: 'Monitorear en vivo',
-    desc: 'Al desplegar en terreno, seguimos observando la red y retroalimentando el modelo.',
+    titulo: 'Monitorear y operar en vivo',
+    desc: 'El gemelo digital permite monitorear el estado de la red vial en tiempo real e intervenir en la operación semafórica cuando las condiciones del tránsito lo requieren.',
     troppoOnly: true,
     icon: 'radar',
   },
@@ -45,11 +44,12 @@ const pasos = [
         <span class="eyebrow-mark" aria-hidden="true"></span>
         ¿POR QUÉ TROPPO?
       </div>
-      <h2 data-vh>Donde los demás terminan, <em>nosotros empezamos.</em></h2>
+      <h2 data-vh>Todo el proceso, <em>en una sola plataforma.</em></h2>
       <p data-vh>
-        Otras herramientas se detienen en simular y analizar. Troppo conecta el
-        proceso completo en una sola plataforma: probar, analizar,
-        <strong>optimizar con IA</strong> y <strong>monitorear en tiempo real</strong>.
+        Troppo integra en una sola plataforma las distintas etapas de gestión de
+        la red vial: simular escenarios para evaluar alternativas,
+        <strong>optimizar con IA</strong>, decidir con evidencia y
+        <strong>monitorear y operar en tiempo real</strong>.
       </p>
     </header>
 
@@ -58,12 +58,12 @@ const pasos = [
           usan los badges per-card + el label absoluto sobre la flecha. */}
       <div class="pq-group-label pq-group-regular" aria-hidden="true">
         <span class="pq-group-line"></span>
-        <span class="pq-group-chip">Otras herramientas se detienen aquí</span>
+        <span class="pq-group-chip">Simulación y análisis</span>
         <span class="pq-group-line"></span>
       </div>
       <div class="pq-group-label pq-group-troppo" aria-hidden="true">
         <span class="pq-group-line"></span>
-        <span class="pq-group-chip">Sólo Troppo</span>
+        <span class="pq-group-chip">Optimización y operación</span>
         <span class="pq-group-line"></span>
       </div>
       {
@@ -72,7 +72,7 @@ const pasos = [
             <article class={`pq-step pq-step--${p.icon} ${p.troppoOnly ? 'is-troppo' : ''}`} data-reveal data-c={i} role="listitem">
               <div class="pq-step-head">
                 <span class="pq-num">{p.num}</span>
-                {p.troppoOnly && <span class="pq-badge">Sólo Troppo</span>}
+                {p.troppoOnly && <span class="pq-badge">Optimización y operación</span>}
               </div>
               <div class="pq-icon-wrap">
                 <svg class="pq-icon" viewBox="0 0 32 32" aria-hidden="true">
@@ -145,7 +145,7 @@ const pasos = [
                   <path d="M20 2 L26 6 L20 10" />
                 </svg>
                 {i === 1 && (
-                  <span class="pq-arrow-label">Otras herramientas se detienen aquí</span>
+                  <span class="pq-arrow-label">Simulación y análisis</span>
                 )}
               </div>
             )}
@@ -154,27 +154,13 @@ const pasos = [
       }
     </div>
 
-    <!-- Arrow de loop-back: cierra el círculo Monitorear → Probar -->
-    <div class="pq-loop" aria-hidden="true">
-      <svg viewBox="0 0 800 60" preserveAspectRatio="none">
-        <path
-          d="M 780 8 C 780 45, 620 55, 400 55 C 180 55, 20 45, 20 8"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-dasharray="6 5"
-        />
-        <path d="M 24 14 L 20 8 L 26 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-      <span class="pq-loop-label">Cerramos el circuito — cada ejecución retroalimenta al modelo</span>
-    </div>
-
     <!-- Highlight final — parafraseo del rúbrica -->
     <div class="pq-highlight">
       <p>
-        <strong>Troppo</strong> no sólo permite entender qué está ocurriendo:
-        también permite probar qué <em>podría ocurrir</em> y tomar mejores
-        decisiones antes de implementarlas en la realidad.
+        <strong>Troppo</strong> permite analizar la red vial mediante simulaciones,
+        evaluar alternativas con IA y <em>llevar las decisiones a la operación
+        real</em>, con monitoreo y capacidad de intervención en tiempo real
+        mediante el gemelo digital.
       </p>
     </div>
   </div>
@@ -274,8 +260,8 @@ const pasos = [
   }
 
   /* --- Etiquetas de grupo (DESKTOP) ---
-     'Otras herramientas se detienen aquí' arriba de pasos 01–02.
-     'Sólo Troppo' arriba de pasos 03–04.
+     'Simulación y análisis' arriba de pasos 01–02.
+     'Optimización y operación' arriba de pasos 03–04.
      En mobile quedan ocultas — se usan los badges per-card + label
      de la flecha límite (comportamiento previo). */
   .pq-group-label { display: none; }
@@ -495,38 +481,6 @@ const pasos = [
     border-bottom: 1px solid rgba(220, 90, 80, 0.35);
   }
 
-  /* Loop-back arrow debajo del flow */
-  .pq-loop {
-    max-width: 1100px;
-    margin: 20px auto 0;
-    height: 60px;
-    /* Cyan oscuro (--cyan-ink) para que se lea sobre el fondo cream
-       — el cyan brillante quedaba muy tenue. */
-    color: rgba(10, 107, 118, 0.6);
-    position: relative;
-    text-align: center;
-  }
-  .pq-loop svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-  .pq-loop-label {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font-sans);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.6px;
-    color: rgba(4, 69, 89, 0.6);
-    text-transform: uppercase;
-    background: rgba(255, 248, 234, 0.72);
-    padding: 3px 12px;
-    border-radius: 100px;
-  }
-
   /* Highlight final */
   .pq-highlight {
     max-width: 780px;
@@ -717,7 +671,6 @@ const pasos = [
       text-align: center;
     }
     .pq-arrow-label::before { display: none; }
-    .pq-loop { display: none; }
     .porque-head h2 { font-size: 30px; }
     .pq-highlight {
       padding: 24px 26px;

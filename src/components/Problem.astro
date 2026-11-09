@@ -68,14 +68,14 @@
     <div class="port-caption" aria-hidden="true">
       <span class="port-loc">PUERTO DE SAN ANTONIO</span>
       <span class="port-sep"></span>
-      <span class="port-sub">Corredor logístico bajo presión</span>
+      <span class="port-sub">Accesos viales bajo presión</span>
     </div>
 
     <!-- Cartel cinematográfico sobre las fotos: eyebrow + h2
          principal de la sección. Reemplaza al .problem-head que estaba
          debajo. Text-shadow + halo radial para legibilidad sobre imagen. -->
     <div class="port-hero">
-      <span class="port-hero-eyebrow">El punto de partida</span>
+      <span class="port-hero-eyebrow">El problema de la congestión en la red vial</span>
       <h2>
         San Antonio mueve el país.
         <em>Y el país espera en la fila.</em>
@@ -86,16 +86,13 @@
   <div class="wrap">
     <div class="stat-grid">
       <div class="stat-card">
-        <div class="num" data-count-to="7000" data-suffix="">7.000</div>
-        <p>Camiones circulando por los accesos en un solo día peak.</p>
+        <!-- El "+" queda fuera del contador para que la animación no lo borre -->
+        <div class="num">+<span data-count-to="900000" data-suffix="">900.000</span></div>
+        <p>Camiones al año circulando por los accesos.</p>
       </div>
       <div class="stat-card">
-        <div class="num" data-count-to="9" data-suffix=" hrs">9 hrs</div>
-        <p>Tiempo de espera máximo registrado en los nodos viales críticos.</p>
-      </div>
-      <div class="stat-card">
-        <div class="num" data-count-to="800" data-suffix="+">800+</div>
-        <p>Transportistas de carga pesada que transitan la zona a diario.</p>
+        <div class="num">+<span data-count-to="30" data-suffix=" min">30 min</span></div>
+        <p>De espera por camión.</p>
       </div>
     </div>
 
@@ -104,10 +101,8 @@
       <div class="stat-nacional-eyebrow">Impacto sistémico · Escala nacional</div>
       <div class="stat-nacional-num">
         <span class="nac-currency">$</span>
-        <span class="nac-num" data-count-to="50" data-suffix="">50</span>
-        <span class="nac-dash">–</span>
-        <span class="nac-num" data-count-to="100" data-suffix="">100</span>
-        <em>mil millones de pesos chilenos</em>
+        <span class="nac-num" data-count-to="11000" data-suffix="">11.000</span>
+        <em>millones de pesos chilenos</em>
       </div>
       <p>
         Es lo que pierde el sector portuario chileno <strong>cada año</strong> por
@@ -293,7 +288,8 @@
   /* ------- STATS (contenido original) ------- */
   .stat-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    /* 2 indicadores (antes 3): 2 columnas para no dejar un hueco */
+    grid-template-columns: repeat(2, 1fr);
     gap: 28px;
     margin-top: 56px;
   }
@@ -320,7 +316,7 @@
     max-width: 230px;
   }
 
-  /* ---- BLOQUE NACIONAL (cifra sistémica 50-100mil MM) ---- */
+  /* ---- BLOQUE NACIONAL (cifra sistémica 11.000 MM al año) ---- */
   .stat-nacional {
     margin-top: 72px;
     padding: 40px 46px;
@@ -367,13 +363,6 @@
     font-weight: 500;
     color: var(--navy);
     font-variant-numeric: tabular-nums;
-  }
-  .nac-dash {
-    font-size: 44px;
-    color: var(--navy);
-    opacity: 0.55;
-    margin: 0 4px;
-    font-weight: 400;
   }
   .stat-nacional-num em {
     font-family: var(--font-title);
@@ -465,7 +454,6 @@
     }
     .nac-currency { font-size: 30px; }
     .nac-num { font-size: 48px; }
-    .nac-dash { font-size: 32px; }
     .stat-nacional-num em { font-size: 22px; margin-left: 6px; }
     .stat-nacional > p { font-size: 14.5px; }
     .stat-bridge {

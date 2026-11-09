@@ -4,12 +4,13 @@
 //
 // Layout: grid 2-cols. Cards a la izquierda scrolleables. Mapa de
 // Chile sticky a la derecha con un camión que recorre la costa a medida
-// que el usuario avanza en el scroll. 4 hitos posicionados en ciudades
-// reales:
-//   1. Arica          — Se define el escenario
-//   2. Valparaíso     — Troppo arranca la simulación
-//   3. Concepción     — El tráfico virtual replica la realidad
-//   4. Punta Arenas   — Aparecen los resultados
+// que el usuario avanza en el scroll. 5 hitos con un pin cada uno a lo
+// largo de la ruta (de norte a sur):
+//   1. Define el escenario
+//   2. Ejecuta la simulación
+//   3. Analiza los resultados
+//   4. Optimiza con IA
+//   5. Monitorea y opera en tiempo real
 ---
 
 <section class="how" id="como-funciona">
@@ -17,29 +18,32 @@
     <header class="how-header">
       <div class="how-eyebrow" data-vh>
         <span class="eyebrow-mark" aria-hidden="true"></span>
-        EL FLUJO · DE NORTE A SUR
+        ¿CÓMO FUNCIONA TROPPO?
       </div>
-      <h2 data-vh>Del panel al resultado, <em>en pocos minutos.</em></h2>
+      <h2 data-vh>Del escenario a los resultados, <em>paso a paso.</em></h2>
       <p data-vh>
-        Definimos qué queremos probar, la IA lo simula en un gemelo digital
-        del tráfico real y nos entrega los resultados en minutos. El proceso
-        recorre el país como una ruta, del panel al resultado.
+        El proceso comienza con la configuración de un escenario y su ejecución
+        en simulación. Sus resultados permiten evaluar alternativas y
+        utilizar la IA para recomendar ubicaciones de semáforos. Una vez
+        implementadas las decisiones en terreno, el gemelo digital permite
+        monitorear y operar la red vial en tiempo real.
       </p>
     </header>
 
     <div class="how-container" data-road>
-      <!-- Columna izquierda: 4 hito cards apilados -->
+      <!-- Columna izquierda: 5 hito cards apilados -->
       <div class="how-cards">
         <article class="hito hito-1" data-hito="1">
           <div class="hito-header-row">
             <span class="hito-num">01</span>
             <span class="hito-dot"></span>
           </div>
-          <h3>Definimos el escenario</h3>
+          <h3>Define el escenario</h3>
           <p>
-            Desde el panel elegimos qué probar: cambios en semaforización,
-            aumento de flujo, un accidente que bloquea una calle. Cualquier
-            variante que necesitemos evaluar.
+            Desde la aplicación configuras el escenario que quieres evaluar:
+            defines la zona de estudio, los buffers y las rutas que formarán
+            parte de la simulación, junto con las ubicaciones de los semáforos
+            que se evaluarán.
           </p>
         </article>
 
@@ -48,11 +52,11 @@
             <span class="hito-num">02</span>
             <span class="hito-dot"></span>
           </div>
-          <h3>Arrancamos la simulación</h3>
+          <h3>Ejecuta la simulación</h3>
           <p>
-            Armamos el gemelo digital con esas condiciones y activamos la IA
-            que coordina el tráfico en tiempo real, aprendiendo de cada
-            segundo simulado.
+            Con el escenario configurado, ejecutas la simulación para analizar
+            el comportamiento del tránsito bajo las condiciones definidas. El motor de simulación procesa estos parámetros y genera
+            los resultados para su posterior análisis.
           </p>
         </article>
 
@@ -61,11 +65,12 @@
             <span class="hito-num">03</span>
             <span class="hito-dot"></span>
           </div>
-          <h3>El tráfico virtual replica la realidad</h3>
+          <h3>Analiza los resultados</h3>
           <p>
-            Miles de vehículos circulan en el gemelo digital siguiendo la red
-            vial real. La IA prueba distintas políticas de semaforización sin
-            intervenir el corredor en operación.
+            La aplicación presenta las métricas obtenidas en cada ejecución,
+            como los tiempos de espera y los niveles de congestión. Estos
+            resultados permiten comparar escenarios, evaluar alternativas y
+            seleccionar las configuraciones que conviene implementar.
           </p>
         </article>
 
@@ -74,16 +79,32 @@
             <span class="hito-num">04</span>
             <span class="hito-dot"></span>
           </div>
-          <h3>Aparecen los resultados</h3>
+          <h3>Optimiza con IA</h3>
           <p>
-            Cuánto se reduce la espera, cuánto CO₂ se ahorra, qué política
-            funciona mejor. Todo antes de aplicar el cambio en terreno.
+            A partir del escenario configurado y de las ejecuciones de
+            simulación, puedes iniciar el entrenamiento de la IA. El modelo
+            evalúa alternativas y recomienda ubicaciones de semáforos orientadas
+            a reducir la congestión.
+          </p>
+        </article>
+
+        <article class="hito hito-5" data-hito="5">
+          <div class="hito-header-row">
+            <span class="hito-num">05</span>
+            <span class="hito-dot"></span>
+          </div>
+          <h3>Monitorea y opera en tiempo real</h3>
+          <p>
+            Una vez implementadas las mejoras en terreno, el gemelo digital
+            permite monitorear el estado de la red vial en tiempo real. El
+            operador puede supervisar el tránsito e intervenir en la operación
+            semafórica cuando las condiciones lo requieran.
           </p>
         </article>
       </div>
 
       <!-- Columna derecha: Chile map FULL HEIGHT (no sticky) — se
-           extiende a lo largo de toda la sección para acompañar los 4
+           extiende a lo largo de toda la sección para acompañar los 5
            hitos. El camión baja proporcional al scroll. -->
       <div class="how-map-column">
         <!-- Silueta de Chile como mask-image (fondo cyan) -->
@@ -119,7 +140,13 @@
             <circle cx="135" cy="960" r="7" class="pin-dot" />
             <circle cx="135" cy="960" r="3.5" class="pin-core" />
           </g>
+          <!-- Pin 4 añadido para el 5.º hito: punto de la ruta en y=1400 -->
           <g class="city-pin pin-4" data-pin="4">
+            <circle cx="172" cy="1400" r="14" class="pin-halo" />
+            <circle cx="172" cy="1400" r="7" class="pin-dot" />
+            <circle cx="172" cy="1400" r="3.5" class="pin-core" />
+          </g>
+          <g class="city-pin pin-5" data-pin="5">
             <circle cx="200" cy="1780" r="14" class="pin-halo" />
             <circle cx="200" cy="1780" r="7" class="pin-dot" />
             <circle cx="200" cy="1780" r="3.5" class="pin-core" />
@@ -235,8 +262,8 @@
   .how-cards {
     display: flex;
     flex-direction: column;
-    /* space-between distribuye las 4 cards uniformemente en la altura
-       del container. La 1era arriba (Arica), la 4ta abajo (Punta Arenas). */
+    /* space-between distribuye las 5 cards uniformemente en la altura
+       del container. La 1era arriba (norte), la 5ta abajo (sur). */
     justify-content: space-between;
     gap: 80px;
     padding: 20px 0 40px;
@@ -265,10 +292,10 @@
       box-shadow 400ms ease,
       border-color 400ms ease;
   }
-  /* Los hitos 1 y 3 "vuelan" desde la izquierda con rotación negativa;
+  /* Los hitos 1, 3 y 5 "vuelan" desde la izquierda con rotación negativa;
      los 2 y 4 desde la derecha con rotación positiva. Al revelarse
      aterrizan en su posición final. Estado estático después del reveal. */
-  .hito-1, .hito-3 {
+  .hito-1, .hito-3, .hito-5 {
     transform: translateX(-160px) rotate(-4deg);
   }
   .hito-2, .hito-4 {
@@ -305,6 +332,7 @@
   .hito-2::after { animation-delay: 1s; }
   .hito-3::after { animation-delay: 2s; }
   .hito-4::after { animation-delay: 3s; }
+  .hito-5::after { animation-delay: 4s; }
 
   /* Contenido por encima de los efectos */
   .hito-header-row,
@@ -347,6 +375,7 @@
   .hito-2 .hito-num { animation-delay: 0.75s; }
   .hito-3 .hito-num { animation-delay: 1.5s; }
   .hito-4 .hito-num { animation-delay: 2.25s; }
+  .hito-5 .hito-num { animation-delay: 3s; }
   .hito-dot {
     width: 6px;
     height: 6px;
@@ -371,7 +400,7 @@
   /* ============ CHILE MAP COLUMN ============
      La columna del mapa se ESTIRA para ocupar toda la altura del
      container (align-items: stretch en el grid). Así el mapa acompaña
-     a los 4 hitos: Arica arriba, Punta Arenas abajo. */
+     a los 5 hitos: el 1.º arriba (norte), el 5.º abajo (sur). */
   .how-map-column {
     position: relative;
     min-height: 100%;
@@ -499,18 +528,20 @@
     }
     /* En mobile la fly-in desde los costados se ve pobre — hitos usan
        slide vertical sutil. Overrides sobrescriben los transform de
-       .hito-1/2/3/4 con selectors más específicos. */
+       .hito-1/2/3/4/5 con selectors más específicos. */
     .hito.hito-1,
     .hito.hito-2,
     .hito.hito-3,
-    .hito.hito-4 {
+    .hito.hito-4,
+    .hito.hito-5 {
       max-width: 100%;
       transform: translateY(24px) rotate(0deg);
     }
     .hito.hito-1.revealed,
     .hito.hito-2.revealed,
     .hito.hito-3.revealed,
-    .hito.hito-4.revealed {
+    .hito.hito-4.revealed,
+    .hito.hito-5.revealed {
       transform: translateY(0) rotate(0deg);
     }
     /* En mobile el mapa se convierte en telón de fondo transparente
@@ -573,7 +604,7 @@
 <script>
   import { revealOnScroll } from '../scripts/reveal';
   // Controlador del flujo Chile:
-  // - Reveal escalonado de las 4 cards con IntersectionObserver
+  // - Reveal escalonado de las 5 cards con IntersectionObserver
   // - Ruta se dibuja proporcional al scroll dentro de la sección
   // - Camión viaja por la ruta usando getPointAtLength
   // - Pins de ciudad se activan cuando el camión llega
@@ -595,7 +626,9 @@
 
     // Umbrales de "camión pasó por esta ciudad" (0..1 sobre la ruta)
     // Estimados en base a la posición Y de cada pin sobre la longitud total.
-    const PIN_THRESHOLDS = [0.05, 0.35, 0.55, 0.94];
+    // El pin 4 (y=1400) está al 77,5% de la ruta → umbral 0.80 (mismo
+    // margen ~+0.03–0.05 que los demás).
+    const PIN_THRESHOLDS = [0.05, 0.35, 0.55, 0.8, 0.94];
 
     let ticking = false;
     let inView = false;

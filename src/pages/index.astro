@@ -16,7 +16,8 @@ import Scalability from '@components/Scalability.astro';
 import Video from '@components/Video.astro';
 import Team from '@components/Team.astro';
 import Empresa from '@components/Empresa.astro';
-import FinalCTA from '@components/FinalCTA.astro';
+import Feria from '@components/Feria.astro';
+import Contacto from '@components/Contacto.astro';
 import Footer from '@components/Footer.astro';
 ---
 
@@ -25,7 +26,6 @@ import Footer from '@components/Footer.astro';
   <Header />
   <main>
     <Hero />
-    <Desafio />
     <Problem />
     <Values />
     <PorQueTroppo />
@@ -38,7 +38,10 @@ import Footer from '@components/Footer.astro';
     <Video />
     <Empresa />
     <Team />
-    <FinalCTA />
+    <!-- Contacto → CTA principal (único) → Feria de Software -->
+    <Contacto />
+    <Desafio />
+    <Feria />
   </main>
   <Footer />
 </Base>

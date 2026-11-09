@@ -1,6 +1,7 @@
 ---
-// Sección "Qué ofrece Troppo" (rúbrica sección 3) — 3 pilares:
-// simulación de red vial + IA con aprendizaje por refuerzo + evidencia digital.
+// Sección "Qué ofrece Troppo" (rúbrica sección 3) — 4 pilares:
+// simulación de escenarios + IA con aprendizaje por refuerzo + evidencia
+// para decidir + monitoreo y operación en tiempo real (gemelo digital).
 ---
 
 <section class="values" id="ofrece">
@@ -12,15 +13,18 @@
           ¿QUÉ OFRECE TROPPO?
         </div>
         <p data-vh>
-          Troppo integra simulación de la red vial, aprendizaje por refuerzo y análisis
-          de resultados en un mismo lugar. El cliente deja de decidir por estimación y
-          pasa a decidir con evidencia del gemelo digital.
+          Troppo integra simulación, optimización mediante inteligencia
+          artificial y un gemelo digital para monitorear y operar la red vial en
+          tiempo real. Las simulaciones permiten evaluar escenarios y comparar
+          alternativas; la IA recomienda configuraciones semafóricas y, una vez
+          implementadas las decisiones, el gemelo digital permite supervisar la
+          operación y actuar cuando sea necesario.
         </p>
       </div>
       <h2 class="values-h2">
         <span class="v-phrase" data-vh>
           <span class="v-num" aria-hidden="true">01</span>
-          <span class="v-text"><em>Probar</em> antes.</span>
+          <span class="v-text"><em>Simular</em> escenarios.</span>
         </span>
         <span class="v-phrase" data-vh>
           <span class="v-num" aria-hidden="true">02</span>
@@ -29,6 +33,10 @@
         <span class="v-phrase" data-vh>
           <span class="v-num" aria-hidden="true">03</span>
           <span class="v-text">Decidir con <em>evidencia</em>.</span>
+        </span>
+        <span class="v-phrase" data-vh>
+          <span class="v-num" aria-hidden="true">04</span>
+          <span class="v-text"><em>Monitorear</em> y operar.</span>
         </span>
       </h2>
     </div>
@@ -50,11 +58,12 @@
             <circle class="val-icon-probe val-icon-probe-3" cx="17" cy="17" r="1.8" fill="#61E1E6" />
           </svg>
         </div>
-        <h3>Simulaciones de la red vial</h3>
+        <h3>Simulación de escenarios</h3>
         <p>
-          Reconstruimos el corredor completo en un gemelo digital. Probamos
-          distintos escenarios de tráfico y comparamos sus resultados — sin
-          arriesgar una sola maniobra en terreno.
+          La aplicación representa la red vial en una simulación y permite
+          ejecutar distintos escenarios de tráfico en un entorno virtual. Así
+          puedes evaluar sus efectos y comparar alternativas antes de realizar
+          cambios en terreno.
         </p>
       </article>
 
@@ -81,9 +90,9 @@
         </div>
         <h3>IA con aprendizaje por refuerzo</h3>
         <p>
-          Las políticas de semaforización no vienen de reglas fijas: la IA
-          aprende de cada ejecución y ajusta el flujo para reducir congestión y
-          tiempos de espera.
+          A partir del escenario configurado y de los resultados de las
+          simulaciones, la IA evalúa alternativas y recomienda ubicaciones de
+          semáforos que contribuyan a reducir la congestión.
         </p>
       </article>
 
@@ -103,9 +112,32 @@
         </div>
         <h3>Evidencia para decidir</h3>
         <p>
-          De estimaciones a evidencia cuantificable. Cada simulación deja
-          métricas y configuración registradas para justificar el próximo
-          paso con números, no con supuestos.
+          Cada ejecución registra las métricas obtenidas y la configuración
+          utilizada. Estos resultados permiten comparar escenarios y evaluar
+          alternativas antes de decidir qué cambios implementar en terreno.
+        </p>
+      </article>
+
+      <article class="value-card value-card--monitor" data-reveal>
+        <div class="icon-wrap">
+          <!-- Monitoreo: pantalla con semáforo + punto "en vivo"
+               (reutiliza la animación val-icon-probe de la tarjeta 1) -->
+          <svg class="icon" viewBox="0 0 34 34" aria-hidden="true">
+            <rect x="4" y="6" width="26" height="18" rx="3" fill="none" stroke="#61E1E6" stroke-width="2" />
+            <path d="M13 29 L21 29 M17 24 L17 29" stroke="#61E1E6" stroke-width="2" stroke-linecap="round" />
+            <path d="M8 19 L12 15 L15 17 L20 11" stroke="#D1EB78" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+            <rect x="22.5" y="9.5" width="4.5" height="11" rx="1.2" fill="none" stroke="#61E1E6" stroke-width="1" opacity="0.6" />
+            <circle cx="24.75" cy="12.5" r="1.1" fill="#D1EB78" />
+            <circle cx="24.75" cy="17.5" r="1.1" fill="#61E1E6" opacity="0.45" />
+            <circle class="val-icon-probe" cx="8" cy="10" r="1.8" fill="#61E1E6" />
+          </svg>
+        </div>
+        <h3>Monitoreo y operación en tiempo real</h3>
+        <p>
+          El gemelo digital permite visualizar el estado de la red vial en
+          tiempo real a partir de los datos recibidos desde terreno. Desde la
+          aplicación, el operador puede supervisar el tránsito e intervenir en
+          la operación semafórica cuando las condiciones lo requieran.
         </p>
       </article>
     </div>
@@ -274,7 +306,8 @@
   .value-grid {
     margin-top: 56px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    /* 4 tarjetas (antes 3): 2×2 para conservar el ancho de cada tarjeta */
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
   .value-card {
@@ -474,6 +507,7 @@
   [data-reveal]:nth-child(1) { transition-delay: 0ms; }
   [data-reveal]:nth-child(2) { transition-delay: 120ms; }
   [data-reveal]:nth-child(3) { transition-delay: 240ms; }
+  [data-reveal]:nth-child(4) { transition-delay: 360ms; }
 
   @media (max-width: 860px) {
     .value-grid {
@@ -512,7 +546,7 @@
 
 <script>
   import { revealOnScroll } from '../scripts/reveal';
-  // Reveal escalonado de las 3 cards — se re-anima cada vez que vuelven
+  // Reveal escalonado de las 4 cards — se re-anima cada vez que vuelven
   // al viewport. Al salir se quita .revealed para que la próxima entrada
   // dispare la animación de nuevo.
   const cards = document.querySelectorAll<HTMLElement>('.values [data-reveal]');
@@ -526,7 +560,7 @@
     });
   }
 
-  // Reveal escalonado del header (eyebrow → 3 frases del h2 → párrafo).
+  // Reveal escalonado del header (eyebrow → párrafo → 4 frases del h2).
   // Cada elemento [data-vh] recibe un transition-delay proporcional a su
   // orden de aparición para que "caigan" en secuencia.
   const headItems = Array.from(

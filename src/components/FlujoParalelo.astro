@@ -1,8 +1,8 @@
 ---
-// Sección "Flujo Principal + Proceso Paralelo" — diagrama que muestra
-// que Troppo tiene dos procesos corriendo simultáneamente: uno para
-// generar la solución (flujo principal) y otro para observarla y
-// operarla en tiempo real (proceso paralelo).
+// Sección "Monitoreo y operación en tiempo real" — diagrama con el flujo
+// principal (simulación, análisis y decisión) y, una vez implementados
+// los cambios en terreno, el monitoreo y la operación con el gemelo
+// digital (panel derecho; en el código sigue llamándose "paralelo").
 //
 // Se conectan con líneas dashed entre pasos específicos.
 // Panel izq (navy) fly-in desde la izquierda. Panel der (lime) fly-in
@@ -28,13 +28,14 @@ const procesoParalelo = [
     <header class="flujop-head">
       <div class="flujop-eyebrow" data-vh>
         <span class="eyebrow-mark" aria-hidden="true"></span>
-        DOS PROCESOS EN PARALELO
+        MONITOREO Y OPERACIÓN EN TIEMPO REAL
       </div>
-      <h2 data-vh>El motor y el observador trabajan <em>al mismo tiempo.</em></h2>
+      <h2 data-vh>Primero se decide con simulación. <em>Después se opera en tiempo real.</em></h2>
       <p data-vh>
-        Mientras el flujo principal ejecuta simulaciones y optimiza políticas,
-        un proceso paralelo mantiene visibilidad y control en tiempo real:
-        el operador siempre puede intervenir sobre la operación.
+        Una vez implementadas las mejoras en terreno, el gemelo digital permite
+        monitorear el estado de la red vial en tiempo real. Si se detectan
+        aumentos de congestión u otras situaciones que lo requieran, el operador
+        puede intervenir en la operación semafórica desde la aplicación.
       </p>
     </header>
 
@@ -166,7 +167,7 @@ const procesoParalelo = [
       <!-- Panel DERECHO: Proceso Paralelo (lime) -->
       <div class="panel panel-paralelo" data-panel="right">
         <header class="panel-head">
-          <h3>Proceso Paralelo</h3>
+          <h3>Gemelo digital</h3>
         </header>
         <ul class="panel-steps">
           {
