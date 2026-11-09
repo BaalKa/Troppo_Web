@@ -171,8 +171,8 @@ const valores = [
     margin-bottom: 14px;
   }
   .empresa-head h2 {
-    font-family: var(--font-serif);
-    font-weight: 500;
+    font-family: var(--font-title);
+    font-weight: 700;
     font-size: 38px;
     line-height: 1.18;
     color: var(--navy);
@@ -229,12 +229,12 @@ const valores = [
     box-sizing: border-box;
   }
   .mv-card p {
-    font-family: var(--font-serif);
+    font-family: var(--font-sans);
     font-size: 17px;
     line-height: 1.55;
     color: var(--navy);
     margin: 0;
-    font-weight: 400;
+    font-weight: 500;
   }
   .mv-card strong {
     font-weight: 700;
@@ -263,8 +263,8 @@ const valores = [
     margin-bottom: 10px;
   }
   .valores-head h3 {
-    font-family: var(--font-serif);
-    font-weight: 500;
+    font-family: var(--font-title);
+    font-weight: 400;
     font-size: 28px;
     line-height: 1.2;
     color: var(--navy);
@@ -305,10 +305,10 @@ const valores = [
     margin-bottom: 14px;
   }
   .valor-num {
-    font-family: var(--font-serif);
+    font-family: var(--font-title);
     font-size: 22px;
     color: var(--cyan-ink);
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1;
   }
   .valor-icon-wrap {
@@ -375,28 +375,17 @@ const valores = [
 </style>
 
 <script>
+  import { revealOnScroll } from '../scripts/reveal';
   // Se re-anima cada vez que los items vuelven al viewport
   const items = document.querySelectorAll<HTMLElement>('.empresa [data-reveal]');
   if (items.length) {
-    const timers = new WeakMap<Element, number>();
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e, i) => {
-          const prev = timers.get(e.target);
-          if (prev) window.clearTimeout(prev);
-          if (e.isIntersecting) {
-            const t = window.setTimeout(() => {
-              e.target.classList.add('revealed');
-              timers.delete(e.target);
-            }, i * 90);
-            timers.set(e.target, t);
-          } else {
-            e.target.classList.remove('revealed');
-          }
-        });
-      },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.12 },
-    );
-    items.forEach((el) => observer.observe(el));
+    // Histéresis: salida 48px sobre la pantalla (> 24px del translateY
+    // oculto) para que la tarjeta no vuelva a entrar al ocultarse.
+    revealOnScroll(items, {
+      enterMargin: '0px 0px -10% 0px',
+      threshold: 0.12,
+      exitMargin: '48px 0px -10% 0px',
+      staggerMs: 90,
+    });
   }
 </script>

@@ -260,8 +260,8 @@ const procesoParalelo = [
   }
   .flujop-eyebrow.revealed .eyebrow-mark { width: 42px; }
   .flujop h2 {
-    font-family: var(--font-serif);
-    font-weight: 500;
+    font-family: var(--font-title);
+    font-weight: 700;
     font-size: 42px;
     line-height: 1.18;
     color: var(--navy);
@@ -632,6 +632,7 @@ const procesoParalelo = [
 </style>
 
 <script>
+  import { revealOnScroll } from '../scripts/reveal';
   const diagram = document.querySelector<HTMLElement>('.flujop-diagram');
   const panels = Array.from(diagram?.querySelectorAll<HTMLElement>('.panel') ?? []);
   const connectorsSvg = diagram?.querySelector<SVGSVGElement>('.connectors');
@@ -718,15 +719,12 @@ const procesoParalelo = [
     flujopHeadItems.forEach((el, i) => {
       el.style.transitionDelay = `${i * 140}ms`;
     });
-    const flujopHeadObs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add('revealed');
-          else e.target.classList.remove('revealed');
-        });
-      },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.2 },
-    );
-    flujopHeadItems.forEach((el) => flujopHeadObs.observe(el));
+    // Histéresis: salida 28px sobre la pantalla (> 14px del translateY
+    // oculto) para que el encabezado no vuelva a entrar al ocultarse.
+    revealOnScroll(flujopHeadItems, {
+      enterMargin: '0px 0px -10% 0px',
+      threshold: 0.2,
+      exitMargin: '28px 0px -10% 0px',
+    });
   }
 </script>

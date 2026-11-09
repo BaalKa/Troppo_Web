@@ -171,8 +171,8 @@ const audiencias = [
   }
   .paraq-eyebrow.revealed .eyebrow-mark { width: 42px; }
   .paraq-head h2 {
-    font-family: var(--font-serif);
-    font-weight: 500;
+    font-family: var(--font-title);
+    font-weight: 700;
     font-size: 40px;
     line-height: 1.2;
     color: var(--cream);
@@ -287,9 +287,9 @@ const audiencias = [
     z-index: 1;
   }
   .pq-audience h3 {
-    font-family: var(--font-serif);
+    font-family: var(--font-title);
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 400;
     color: var(--cream);
     margin: 0 0 20px;
     line-height: 1.25;
@@ -358,29 +358,18 @@ const audiencias = [
 </style>
 
 <script>
+  import { revealOnScroll } from '../scripts/reveal';
   // Se re-anima cada vez que los items vuelven al viewport
   const items = document.querySelectorAll<HTMLElement>('.paraq [data-reveal]');
   if (items.length) {
-    const timers = new WeakMap<Element, number>();
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e, i) => {
-          const prev = timers.get(e.target);
-          if (prev) window.clearTimeout(prev);
-          if (e.isIntersecting) {
-            const t = window.setTimeout(() => {
-              e.target.classList.add('revealed');
-              timers.delete(e.target);
-            }, i * 130);
-            timers.set(e.target, t);
-          } else {
-            e.target.classList.remove('revealed');
-          }
-        });
-      },
-      { rootMargin: '0px 0px -12% 0px', threshold: 0.15 },
-    );
-    items.forEach((el) => observer.observe(el));
+    // Histéresis: salida 48px sobre la pantalla (> 24px del translateY
+    // oculto) para que la tarjeta no vuelva a entrar al ocultarse.
+    revealOnScroll(items, {
+      enterMargin: '0px 0px -12% 0px',
+      threshold: 0.15,
+      exitMargin: '48px 0px -12% 0px',
+      staggerMs: 130,
+    });
   }
 
   // Reveal escalonado del header (eyebrow → h2 → párrafo). Re-animatable.
@@ -391,15 +380,12 @@ const audiencias = [
     paraqHeadItems.forEach((el, i) => {
       el.style.transitionDelay = `${i * 140}ms`;
     });
-    const paraqHeadObs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add('revealed');
-          else e.target.classList.remove('revealed');
-        });
-      },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.2 },
-    );
-    paraqHeadItems.forEach((el) => paraqHeadObs.observe(el));
+    // Histéresis: salida 28px sobre la pantalla (> 14px del translateY
+    // oculto) para que el encabezado no vuelva a entrar al ocultarse.
+    revealOnScroll(paraqHeadItems, {
+      enterMargin: '0px 0px -10% 0px',
+      threshold: 0.2,
+      exitMargin: '28px 0px -10% 0px',
+    });
   }
 </script>

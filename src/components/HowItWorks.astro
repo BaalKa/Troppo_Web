@@ -179,8 +179,8 @@
   }
   .how-eyebrow.revealed .eyebrow-mark { width: 42px; }
   .how h2 {
-    font-family: var(--font-serif);
-    font-weight: 500;
+    font-family: var(--font-title);
+    font-weight: 700;
     font-size: 44px;
     line-height: 1.15;
     color: var(--navy);
@@ -279,40 +279,7 @@
     transform: translateX(0) rotate(0deg);
   }
 
-  /* ---- BRILLO 1: sweep diagonal ambiente ----
-     Franja cyan diagonal que atraviesa la card cada X segundos. Cada
-     card usa animation-delay distinto para que no brillen sincronizadas. */
-  .hito::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -60%;
-    width: 55%;
-    height: 100%;
-    background: linear-gradient(
-      110deg,
-      transparent 0%,
-      rgba(97, 225, 230, 0.14) 40%,
-      rgba(97, 225, 230, 0.35) 50%,
-      rgba(97, 225, 230, 0.14) 60%,
-      transparent 100%
-    );
-    transform: skewX(-18deg);
-    pointer-events: none;
-    z-index: 1;
-    animation: hito-sweep 7s ease-in-out infinite;
-  }
-  @keyframes hito-sweep {
-    0%, 100% { transform: translateX(0) skewX(-18deg); opacity: 0; }
-    45%      { opacity: 1; }
-    55%      { opacity: 1; }
-    100%     { transform: translateX(340%) skewX(-18deg); opacity: 0; }
-  }
-  .hito-2::before { animation-delay: 1.4s; }
-  .hito-3::before { animation-delay: 2.8s; }
-  .hito-4::before { animation-delay: 4.2s; }
-
-  /* ---- BRILLO 2: halo cyan pulsante en la esquina superior ----
+  /* ---- BRILLO: halo cyan pulsante en la esquina superior ----
      Un punto de luz cyan suave que pulsa cerca del número del hito. */
   .hito::after {
     content: '';
@@ -354,9 +321,6 @@
       0 0 0 3px rgba(97, 225, 230, 0.28);
     border-color: rgba(97, 225, 230, 0.55);
   }
-  .hito:hover::before {
-    animation-duration: 2.2s;
-  }
   .hito:hover::after {
     animation-duration: 1.4s;
     opacity: 1;
@@ -368,10 +332,10 @@
     margin-bottom: 8px;
   }
   .hito-num {
-    font-family: var(--font-serif);
+    font-family: var(--font-title);
     font-size: 32px;
     color: var(--navy);
-    font-weight: 500;
+    font-weight: 700;
     line-height: 1;
     text-shadow: 0 0 8px rgba(97, 225, 230, 0.3);
     animation: hito-num-glow 3s ease-in-out infinite;
@@ -601,12 +565,13 @@
     .hito { opacity: 1; transform: none; }
     .city-pin.active .pin-halo { animation: none; }
     /* Desactivar todos los brillos temáticos */
-    .hito::before, .hito::after { animation: none; display: none; }
+    .hito::after { animation: none; display: none; }
     .hito-num { animation: none; }
   }
 </style>
 
 <script>
+  import { revealOnScroll } from '../scripts/reveal';
   // Controlador del flujo Chile:
   // - Reveal escalonado de las 4 cards con IntersectionObserver
   // - Ruta se dibuja proporcional al scroll dentro de la sección
@@ -706,16 +671,18 @@
     // Reveal por card: se re-anima cada vez que el hito vuelve al
     // viewport. Al salir se quita .revealed para que el fly-in dispare
     // de nuevo al re-entrar.
-    const hitoObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add('revealed');
-          else e.target.classList.remove('revealed');
-        });
-      },
-      { rootMargin: '0px 0px -20% 0px', threshold: 0.15 },
-    );
-    hitos.forEach((h) => hitoObserver.observe(h));
+    // Histéresis específica de los hitos:
+    // - Escritorio: translateX(±160px) + rotate(±4deg). La rotación agranda
+    //   la caja medida ~18px por arriba Y por abajo (tarjeta de hasta 520px),
+    //   así que la zona de salida se amplía en ambos bordes.
+    // - Móvil (≤960px): translateY(24px).
+    // Salida: 48px sobre la pantalla (> 24px y > 18px) y borde inferior en
+    // -12% en vez de -20% (≥ 40px extra en pantallas de 500px o más).
+    revealOnScroll(hitos, {
+      enterMargin: '0px 0px -20% 0px',
+      threshold: 0.15,
+      exitMargin: '48px 0px -12% 0px',
+    });
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
@@ -731,15 +698,12 @@
     howHeadItems.forEach((el, i) => {
       el.style.transitionDelay = `${i * 140}ms`;
     });
-    const howHeadObs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add('revealed');
-          else e.target.classList.remove('revealed');
-        });
-      },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.2 },
-    );
-    howHeadItems.forEach((el) => howHeadObs.observe(el));
+    // Histéresis: salida 28px sobre la pantalla (> 14px del translateY
+    // oculto) para que el encabezado no vuelva a entrar al ocultarse.
+    revealOnScroll(howHeadItems, {
+      enterMargin: '0px 0px -10% 0px',
+      threshold: 0.2,
+      exitMargin: '28px 0px -10% 0px',
+    });
   }
 </script>

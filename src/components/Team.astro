@@ -119,8 +119,8 @@ const members = [
     margin-bottom: 14px;
   }
   h2 {
-    font-family: var(--font-serif);
-    font-weight: 500;
+    font-family: var(--font-title);
+    font-weight: 700;
     font-size: 34px;
     line-height: 1.2;
     color: var(--cream);
@@ -260,28 +260,17 @@ const members = [
 </style>
 
 <script>
+  import { revealOnScroll } from '../scripts/reveal';
   // Se re-anima cada vez que los items vuelven al viewport
   const items = document.querySelectorAll<HTMLElement>('.team [data-reveal]');
   if (items.length) {
-    const timers = new WeakMap<Element, number>();
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e, i) => {
-          const prev = timers.get(e.target);
-          if (prev) window.clearTimeout(prev);
-          if (e.isIntersecting) {
-            const t = window.setTimeout(() => {
-              e.target.classList.add('revealed');
-              timers.delete(e.target);
-            }, i * 80);
-            timers.set(e.target, t);
-          } else {
-            e.target.classList.remove('revealed');
-          }
-        });
-      },
-      { rootMargin: '0px 0px -12% 0px', threshold: 0.15 },
-    );
-    items.forEach((el) => observer.observe(el));
+    // Histéresis: salida 48px sobre la pantalla (> 24px del translateY
+    // oculto) para que la tarjeta no vuelva a entrar al ocultarse.
+    revealOnScroll(items, {
+      enterMargin: '0px 0px -12% 0px',
+      threshold: 0.15,
+      exitMargin: '48px 0px -12% 0px',
+      staggerMs: 80,
+    });
   }
 </script>

@@ -76,8 +76,8 @@
   }
 
   h2 {
-    font-family: var(--font-serif);
-    font-weight: 500;
+    font-family: var(--font-title);
+    font-weight: 700;
     font-size: clamp(28px, 3.6vw, 42px);
     line-height: 1.18;
     color: var(--cream);
@@ -136,18 +136,16 @@
 </style>
 
 <script>
+  import { revealOnScroll } from '../scripts/reveal';
   // Reveal on scroll — se re-anima cada vez que el bloque vuelve al viewport
   const inner = document.querySelector<HTMLElement>('.desafio-inner');
   if (inner) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add('revealed');
-          else e.target.classList.remove('revealed');
-        });
-      },
-      { rootMargin: '0px 0px -15% 0px', threshold: 0.2 },
-    );
-    observer.observe(inner);
+    // Histéresis: salida 40px sobre la pantalla (> 20px del translateY
+    // oculto) para que el bloque no vuelva a entrar al ocultarse.
+    revealOnScroll([inner], {
+      enterMargin: '0px 0px -15% 0px',
+      threshold: 0.2,
+      exitMargin: '40px 0px -15% 0px',
+    });
   }
 </script>

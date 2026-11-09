@@ -29,14 +29,6 @@
         <span class="ring"></span>
         <span class="ring"></span>
       </div>
-      <div class="lidar-scanner" aria-hidden="true">
-        <div class="scanner-arm"></div>
-        <div class="scanner-blip">
-          <div class="blip-ring"></div>
-          <div class="blip-dot"></div>
-        </div>
-        <div class="scanner-hud">DETECTADO</div>
-      </div>
       <img
         class="compass-big"
         src="/images/logo/logo_light_sinfondo.png"
@@ -63,13 +55,13 @@
     );
     color: var(--cream);
     position: relative;
-    /* overflow visible en Y para que el detector LiDAR (scanner-arm, blip,
-       HUD) pueda extenderse desde la brújula hacia abajo dentro de Desafio.
+    /* overflow visible en Y para que las ondas de click (ripples) puedan
+       extenderse desde la brújula hacia abajo dentro de Desafio.
        Se mantiene clip horizontal para no generar scroll lateral. */
     overflow-x: clip;
     overflow-y: visible;
-    /* z-index elevado para que los elementos del scanner que se extienden
-       hacia abajo rendericen por encima del gradiente de Desafio. */
+    /* z-index elevado para que esas ondas rendericen por encima del
+       gradiente de Desafio. */
     z-index: 4;
     padding: 100px 0 120px;
   }
@@ -100,8 +92,8 @@
     background: var(--lime);
   }
   h1 {
-    font-family: var(--font-serif);
-    font-weight: 500;
+    font-family: var(--font-title);
+    font-weight: 700;
     font-size: 56px;
     line-height: 1.08;
     letter-spacing: -0.5px;
@@ -141,8 +133,7 @@
   .hero-visual {
     position: relative;
     height: 420px;
-    /* Eje Y compartido: brújula, lidar-sweep y scanner-arm todos pivotan aquí.
-       En mobile se sobrescribe para empujar la brújula hacia arriba. */
+    /* Eje Y compartido: brújula y lidar-sweep pivotan aquí. */
     --compass-cy: 50%;
   }
   .compass-big {
@@ -215,99 +206,6 @@
     animation-duration: 1.8s;
   }
 
-  /* ---------- LIDAR SCANNER (hover) ---------- */
-  /* Al pasar el mouse sobre el hero, aparece un brazo que sigue al cursor
-     y un blip pulsante en el punto detectado. Efecto radar activo. */
-  .lidar-scanner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 250ms ease;
-    z-index: 3;
-  }
-  .lidar-scanner.active {
-    opacity: 1;
-  }
-  .scanner-arm {
-    position: absolute;
-    top: var(--compass-cy);
-    left: 50%;
-    height: 1.5px;
-    width: 0;
-    background: linear-gradient(
-      to right,
-      rgba(97, 225, 230, 0) 0%,
-      rgba(97, 225, 230, 0.15) 20%,
-      rgba(97, 225, 230, 0.9) 100%
-    );
-    transform-origin: left center;
-    box-shadow: 0 0 8px rgba(97, 225, 230, 0.4);
-    will-change: transform, width;
-  }
-  .scanner-blip {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 20px;
-    height: 20px;
-    transform: translate(-50%, -50%);
-    will-change: top, left;
-  }
-  .blip-ring {
-    position: absolute;
-    inset: 0;
-    border: 1.5px solid rgba(97, 225, 230, 0.75);
-    border-radius: 50%;
-    animation: blip-pulse 1.1s ease-out infinite;
-  }
-  .blip-dot {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 6px;
-    height: 6px;
-    background: var(--cyan);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 10px var(--cyan);
-  }
-  @keyframes blip-pulse {
-    0% {
-      transform: scale(0.4);
-      opacity: 0.9;
-    }
-    100% {
-      transform: scale(2);
-      opacity: 0;
-    }
-  }
-  .scanner-hud {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 4px 10px;
-    font-family: var(--font-sans);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: var(--cyan);
-    /* Glassmorphism — se ve la brújula a través del recuadro */
-    background: rgba(4, 69, 89, 0.28);
-    backdrop-filter: blur(10px) saturate(140%);
-    -webkit-backdrop-filter: blur(10px) saturate(140%);
-    border: 1px solid rgba(97, 225, 230, 0.3);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    white-space: nowrap;
-    /* Posicionado debajo del cursor (antes tapaba la brújula por arriba) */
-    transform: translate(14px, 20px);
-    will-change: top, left;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .lidar-sweep .ring {
       animation: none;
@@ -316,12 +214,7 @@
     .compass-big {
       animation: none;
     }
-    .blip-ring {
-      animation: none;
-    }
   }
-  /* En touch el scanner también funciona (finger tracking) — se activa
-     con touchstart/touchmove. Ver script abajo. */
 
   /* ---------- CLICK RIPPLES ---------- */
   /* Impacto tipo agua: flash brillante + 3 ondas concéntricas escalonadas.
@@ -419,134 +312,11 @@
 </style>
 
 <script>
-  // LiDAR scanner: la zona de detección ahora cubre TODA la sección
-  // Hero (no sólo la brújula). El brazo sigue pivotando desde el centro
-  // de la brújula pero se extiende a cualquier parte del hero. Esto
-  // duplica (y más) el área x/y del detector.
-  const hero = document.querySelector<HTMLElement>('.hero');
+  // Ripples al hacer click sobre la brújula — impacto de agua con
+  // múltiples ondas concéntricas.
   const heroVisual = document.querySelector<HTMLElement>('.hero-visual');
-  const scanner = heroVisual?.querySelector<HTMLElement>('.lidar-scanner');
-  const arm = scanner?.querySelector<HTMLElement>('.scanner-arm');
-  const blip = scanner?.querySelector<HTMLElement>('.scanner-blip');
-  const hud = scanner?.querySelector<HTMLElement>('.scanner-hud');
 
-  if (hero && heroVisual && scanner && arm && blip && hud) {
-    let ticking = false;
-    let latestX = 0;
-    let latestY = 0;
-
-    // El centro Y de la brújula viene de la CSS var --compass-cy (50% desktop,
-    // 32% mobile). Se cachea y se re-lee en resize para no llamar
-    // getComputedStyle en cada frame.
-    let compassCyRatio = 0.5;
-    const readCompassCy = () => {
-      const raw = getComputedStyle(heroVisual).getPropertyValue('--compass-cy').trim();
-      const parsed = parseFloat(raw);
-      compassCyRatio = Number.isNaN(parsed) ? 0.5 : parsed / 100;
-    };
-    readCompassCy();
-    window.addEventListener('resize', readCompassCy);
-
-    const update = () => {
-      const rect = heroVisual.getBoundingClientRect();
-      const centerX = rect.width / 2;
-      const centerY = rect.height * compassCyRatio;
-      const dx = latestX - centerX;
-      const dy = latestY - centerY;
-
-      // Brazo desde el centro hacia el cursor
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      const angleDeg = (Math.atan2(dy, dx) * 180) / Math.PI;
-      arm.style.width = `${distance}px`;
-      arm.style.transform = `translate(0, -50%) rotate(${angleDeg}deg)`;
-
-      // Blip en la posición del cursor
-      blip.style.left = `${latestX}px`;
-      blip.style.top = `${latestY}px`;
-
-      // HUD con coordenadas simuladas — sensación "sensor real"
-      const coordX = Math.round(dx);
-      const coordY = Math.round(dy);
-      hud.style.left = `${latestX}px`;
-      hud.style.top = `${latestY}px`;
-      hud.textContent = `DETECTADO · X${coordX >= 0 ? '+' : ''}${coordX} Y${coordY >= 0 ? '+' : ''}${coordY}`;
-
-      ticking = false;
-    };
-
-    const updatePosition = (clientX: number, clientY: number) => {
-      const rect = heroVisual.getBoundingClientRect();
-      latestX = clientX - rect.left;
-      latestY = clientY - rect.top;
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    };
-
-    // ---- MOUSE ----
-    // Zona detectora extendida: desde el top del Hero hasta apenas
-    // encima del eyebrow "¿Tienes algún desafío…" en Desafio. El scanner
-    // se activa mientras el cursor esté dentro de esa banda vertical.
-    const desafioEyebrow = document.querySelector<HTMLElement>('.desafio-eyebrow');
-
-    const isInDetectorZone = (clientY: number) => {
-      const heroRect = hero.getBoundingClientRect();
-      if (clientY < heroRect.top) return false;
-      if (desafioEyebrow) {
-        const eyebrowRect = desafioEyebrow.getBoundingClientRect();
-        // 14px de aire encima del eyebrow para que no lo tape el HUD
-        return clientY < eyebrowRect.top - 14;
-      }
-      return clientY < heroRect.bottom;
-    };
-
-    document.addEventListener('mousemove', (e) => {
-      if (isInDetectorZone(e.clientY)) {
-        scanner.classList.add('active');
-        updatePosition(e.clientX, e.clientY);
-      } else {
-        scanner.classList.remove('active');
-      }
-    });
-
-    // ---- TOUCH ----
-    // Finger tracking en mobile: mientras el dedo pasa sobre el hero
-    // (incluso durante scroll — touchmove es passive, no bloquea el scroll)
-    // el scanner sigue el dedo. Se desactiva con delay al levantar el dedo
-    // para que no parpadee.
-    let touchFadeTimer = 0;
-
-    hero.addEventListener(
-      'touchstart',
-      (e) => {
-        window.clearTimeout(touchFadeTimer);
-        scanner.classList.add('active');
-        const t = e.touches[0];
-        if (t) updatePosition(t.clientX, t.clientY);
-      },
-      { passive: true },
-    );
-
-    hero.addEventListener(
-      'touchmove',
-      (e) => {
-        const t = e.touches[0];
-        if (t) updatePosition(t.clientX, t.clientY);
-      },
-      { passive: true },
-    );
-
-    hero.addEventListener(
-      'touchend',
-      () => {
-        touchFadeTimer = window.setTimeout(() => {
-          scanner.classList.remove('active');
-        }, 900);
-      },
-      { passive: true },
-    );
-
-    // Ripples al hacer click — impacto de agua con multiples ondas concentricas.
+  if (heroVisual) {
     const spawnRipple = (x: number, y: number, delay: number, klass: string) => {
       window.setTimeout(() => {
         const el = document.createElement('span');
