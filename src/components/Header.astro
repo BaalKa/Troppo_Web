@@ -13,9 +13,10 @@
     </a>
 
     <nav class="pf-pill pf-nav" aria-label="Navegación principal">
-      <a href="#empresa">Nosotros</a>
+      <a href="#ofrece">Qué ofrece Troppo</a>
       <a href="#como-funciona">Cómo funciona</a>
-      <a href="#equipo">Equipo</a>
+      <a href="#para-quien">Para quién es Troppo</a>
+      <a href="#empresa">Nosotros</a>
     </nav>
 
     <a href="#contacto" class="pf-pill pf-cta">
@@ -106,7 +107,9 @@
     align-self: flex-start;
     margin-top: -20px;
     padding: 32px 28px 14px;
-    gap: 24px;
+    /* Separación entre accesos: 34px en escritorio amplio, se reduce de
+       forma proporcional al ancho hasta los 24px originales (≈960px). */
+    gap: clamp(24px, 2.5vw, 34px);
     border-radius: 0 0 28px 28px;
     border-top: none;
     /* Sombra solo bajo el notch — sin sombras laterales que interfieran
