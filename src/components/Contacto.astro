@@ -98,7 +98,7 @@ const canales = [
     position: relative;
   }
 
-  /* ---- HEAD (mismo lenguaje que los eyebrows de HowItWorks/FlujoParalelo) ---- */
+  /* ---- HEAD (título y subtítulo: tipografía en global.css) ---- */
   .contacto-head {
     max-width: 720px;
     margin: 0 auto 48px;
@@ -116,7 +116,7 @@ const canales = [
   .contacto-hint {
     margin: 16px auto 0;
     font-family: var(--font-sans);
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.6;
     color: rgba(21, 27, 32, 0.72);
   }
@@ -171,7 +171,8 @@ const canales = [
   }
   .contacto-label {
     font-family: var(--font-sans);
-    font-size: 11px;
+    /* Un poco más grande que el dato de contacto (16px) para marcar jerarquía */
+    font-size: 18px;
     font-weight: 700;
     letter-spacing: 1.6px;
     text-transform: uppercase;
@@ -189,7 +190,7 @@ const canales = [
   @media (max-width: 860px) {
     .contacto { padding: 72px 0 80px; }
     .contacto-head { margin-bottom: 36px; }
-    .contacto-hint { font-size: 14.5px; }
+    .contacto-hint { font-size: 16px; }
     .contacto-grid {
       grid-template-columns: 1fr;
       gap: 14px;

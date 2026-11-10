@@ -45,19 +45,11 @@
       </p>
     </div>
 
-    <!-- Bridge hacia sección 3: por qué surge Troppo -->
-    <div class="stat-bridge">
-      <p>
-        Pero saber qué medida realmente resuelve el problema no es simple.
-        Cambiar la programación de los semáforos o invertir en nueva infraestructura
-        son <strong>decisiones costosas</strong>, y probarlas directamente en
-        terreno, <strong>riesgoso</strong>.
-      </p>
-      <p class="stat-bridge-hook">
-        Por eso surge la necesidad de
-        <em>evaluar alternativas antes de implementarlas.</em>
-      </p>
-    </div>
+    <!-- Cierre de la sección: texto libre (sin caja) -->
+    <p class="problem-close">
+      Evaluar alternativas antes de implementar cambios es clave: las decisiones
+      sobre semáforos e infraestructura son <strong>costosas y riesgosas</strong>.
+    </p>
   </div>
 </section>
 
@@ -208,42 +200,18 @@
     font-weight: 700;
   }
 
-  /* ---- BRIDGE HACIA SECCIÓN 3 ---- */
-  .stat-bridge {
-    margin-top: 42px;
+  /* ---- CIERRE (texto libre, sin contenedor) ---- */
+  .problem-close {
+    margin: 56px auto 0;
     max-width: 760px;
-    /* Mismo tratamiento que las cards de Misión / Visión:
-       gradient cyan sutil → blanco, border cyan, rounded, box-shadow. */
-    padding: 26px 30px;
-    background: linear-gradient(180deg, rgba(97, 225, 230, 0.05), #fff);
-    border: 1px solid rgba(97, 225, 230, 0.28);
-    border-radius: 20px;
-    box-shadow: 0 10px 28px rgba(4, 69, 89, 0.06);
-  }
-  .stat-bridge p {
-    font-size: 15px;
-    color: rgba(21, 27, 32, 0.72);
-    line-height: 1.65;
-  }
-  .stat-bridge p + p {
-    margin-top: 14px;
-  }
-  .stat-bridge strong {
+    text-align: center;
+    font-family: var(--font-sans);
+    font-size: 19px;
+    line-height: 1.55;
     color: var(--navy);
+  }
+  .problem-close strong {
     font-weight: 700;
-  }
-  .stat-bridge-hook {
-    font-family: var(--font-sans);
-    font-size: 18px !important;
-    color: var(--navy) !important;
-    font-weight: 500;
-    line-height: 1.5 !important;
-  }
-  .stat-bridge-hook em {
-    font-family: var(--font-sans);
-    font-style: italic;
-    color: var(--cyan-ink);
-    font-weight: 500;
   }
 
   @media (max-width: 860px) {
@@ -265,12 +233,7 @@
     .nac-num { font-size: 48px; }
     .stat-nacional-num em { font-size: 22px; margin-left: 6px; }
     .stat-nacional > p { font-size: 14.5px; }
-    .stat-bridge {
-      padding: 18px 20px;
-      margin-top: 32px;
-    }
-    .stat-bridge p { font-size: 14px; }
-    .stat-bridge-hook { font-size: 16px !important; }
+    .problem-close { margin-top: 40px; font-size: 16.5px; }
   }
 </style>
 
