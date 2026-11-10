@@ -23,14 +23,13 @@ const procesoParalelo = [
 ];
 ---
 
-<section class="flujop" id="flujo-paralelo">
+<section class="flujop sec-light" id="flujo-paralelo">
   <div class="wrap">
     <header class="flujop-head">
-      <div class="flujop-eyebrow" data-vh>
-        <span class="eyebrow-mark" aria-hidden="true"></span>
-        MONITOREO Y OPERACIÓN EN TIEMPO REAL
+      <div class="flujop-eyebrow sec-title" data-vh>
+        Monitoreo y operación en tiempo real
       </div>
-      <h2 data-vh>Primero se decide con simulación. <em>Después se opera en tiempo real.</em></h2>
+      <h2 class="sec-subtitle" data-vh>Primero se decide con simulación. <em>Después se opera en tiempo real.</em></h2>
       <p data-vh>
         Una vez implementadas las mejoras en terreno, el gemelo digital permite
         monitorear el estado de la red vial en tiempo real. Si se detectan
@@ -234,44 +233,17 @@ const procesoParalelo = [
 
   /* ---- HEAD ---- */
   .flujop-head {
-    max-width: 720px;
+    max-width: 1000px;
     margin: 0 auto 68px;
     text-align: center;
   }
   .flujop-eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 14px;
-    font-family: var(--font-title);
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: var(--cyan-ink);
-    text-transform: uppercase;
     margin-bottom: 24px;
   }
-  .flujop-eyebrow .eyebrow-mark {
-    display: inline-block;
-    width: 0;
-    height: 2px;
-    background: var(--cyan-ink);
-    box-shadow: 0 0 8px rgba(10, 107, 118, 0.45);
-    border-radius: 2px;
-    transition: width 900ms cubic-bezier(0.16, 1, 0.3, 1) 100ms;
-  }
-  .flujop-eyebrow.revealed .eyebrow-mark { width: 42px; }
   .flujop h2 {
-    font-family: var(--font-title);
-    font-weight: 700;
-    font-size: 42px;
-    line-height: 1.18;
-    color: var(--navy);
     margin: 0;
-    letter-spacing: -0.4px;
-  }
-  .flujop h2 em {
-    font-style: italic;
-    color: var(--cyan-ink);
   }
   .flujop-head p {
     margin: 22px auto 0;
@@ -592,7 +564,6 @@ const procesoParalelo = [
     .panel-principal.revealed, .panel-paralelo.revealed {
       transform: translateY(0);
     }
-    .flujop h2 { font-size: 28px; }
     .step { font-size: 13px; }
     /* Reformateamos steps del panel paralelo para hacer espacio al chip
        "Paso NN" a la derecha: icon | label | chip. */

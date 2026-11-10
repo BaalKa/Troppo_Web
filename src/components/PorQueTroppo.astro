@@ -37,14 +37,13 @@ const pasos = [
 ];
 ---
 
-<section class="porque" id="porque-troppo">
+<section class="porque sec-light" id="porque-troppo">
   <div class="wrap">
     <header class="porque-head">
-      <div class="porque-eyebrow" data-vh>
-        <span class="eyebrow-mark" aria-hidden="true"></span>
-        ¿POR QUÉ TROPPO?
+      <div class="porque-eyebrow sec-title" data-vh>
+        ¿Por qué Troppo?
       </div>
-      <h2 data-vh>Todo el proceso, <em>en una sola plataforma.</em></h2>
+      <h2 class="sec-subtitle" data-vh>Todo el proceso, <em>en una sola plataforma.</em></h2>
       <p data-vh>
         Troppo integra en una sola plataforma las distintas etapas de gestión de
         la red vial: simular escenarios para evaluar alternativas,
@@ -139,13 +138,13 @@ const pasos = [
             </article>
 
             {i < pasos.length - 1 && (
-              <div class={`pq-arrow ${i === 1 ? 'is-limit' : ''}`} data-a={i} aria-hidden="true">
+              <div class="pq-arrow" data-a={i} aria-hidden="true">
                 <svg viewBox="0 0 32 12" width="28" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M2 6 L26 6" />
                   <path d="M20 2 L26 6 L20 10" />
                 </svg>
                 {i === 1 && (
-                  <span class="pq-arrow-label">Simulación y análisis</span>
+                  <span class="pq-arrow-label pq-badge">Simulación y análisis</span>
                 )}
               </div>
             )}
@@ -184,37 +183,10 @@ const pasos = [
   .porque-eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 14px;
-    font-family: var(--font-title);
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: var(--cyan-ink);
-    text-transform: uppercase;
     margin-bottom: 24px;
   }
-  .porque-eyebrow .eyebrow-mark {
-    display: inline-block;
-    width: 0;
-    height: 2px;
-    background: var(--cyan-ink);
-    box-shadow: 0 0 8px rgba(10, 107, 118, 0.45);
-    border-radius: 2px;
-    transition: width 900ms cubic-bezier(0.16, 1, 0.3, 1) 100ms;
-  }
-  .porque-eyebrow.revealed .eyebrow-mark { width: 42px; }
   .porque-head h2 {
-    font-family: var(--font-title);
-    font-weight: 700;
-    font-size: 44px;
-    line-height: 1.15;
-    color: var(--navy);
     margin: 0;
-    letter-spacing: -0.4px;
-  }
-  .porque-head h2 em {
-    font-style: italic;
-    color: var(--cyan-ink);
   }
   .porque-head p {
     margin: 22px auto 0;
@@ -270,20 +242,21 @@ const pasos = [
       grid-template-rows: auto 1fr;
       row-gap: 26px;
     }
+    /* Ambas etiquetas ("Simulación y análisis" y "Optimización y
+       operación") comparten el mismo diseño; sólo cambia su columna. */
     .pq-group-label {
       display: flex;
       align-items: center;
       gap: 14px;
       padding: 0 8px;
       grid-row: 1;
+      color: var(--cyan-ink);
     }
     .pq-group-regular {
       grid-column: 1 / 4;
-      color: rgba(220, 90, 80, 0.85);
     }
     .pq-group-troppo {
       grid-column: 5 / 8;
-      color: var(--cyan-ink);
     }
     .pq-group-line {
       flex: 1;
@@ -448,37 +421,15 @@ const pasos = [
     color: rgba(4, 69, 89, 0.35);
     position: relative;
   }
-  .pq-arrow.is-limit {
-    color: rgba(220, 90, 80, 0.7);
-  }
+  /* Etiqueta sobre la flecha límite (sólo visible en mobile). Su
+     aspecto lo da .pq-badge, igual que "Optimización y operación";
+     aquí sólo queda la posición. */
   .pq-arrow-label {
     position: absolute;
     top: -32px;
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
-    font-family: var(--font-sans);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: rgba(220, 90, 80, 0.85);
-    text-transform: uppercase;
-    padding: 4px 10px;
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(220, 90, 80, 0.35);
-    border-radius: 100px;
-  }
-  .pq-arrow-label::before {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%) rotate(45deg);
-    width: 8px;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.9);
-    border-right: 1px solid rgba(220, 90, 80, 0.35);
-    border-bottom: 1px solid rgba(220, 90, 80, 0.35);
   }
 
   /* Highlight final */
@@ -666,12 +617,8 @@ const pasos = [
       left: auto;
       white-space: normal;
       max-width: 260px;
-      font-size: 9.5px;
-      letter-spacing: 1px;
       text-align: center;
     }
-    .pq-arrow-label::before { display: none; }
-    .porque-head h2 { font-size: 30px; }
     .pq-highlight {
       padding: 24px 26px;
       margin-top: 48px;

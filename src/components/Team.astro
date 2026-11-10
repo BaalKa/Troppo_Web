@@ -1,11 +1,12 @@
 ---
-// Sección de equipo — parte de "Zona empresa" (rúbrica sección 8).
-// Cada miembro con foto de perfil, nombre, rol, email y LinkedIn.
+// Tarjetas del equipo — se usan dentro de la "Zona empresa" (Empresa.astro),
+// que aporta el fondo y los títulos. Cada miembro con foto de perfil,
+// nombre, rol, email y LinkedIn.
 // Fotos self-hosted en /public/images/team/ (PNG o JPG cuadradas, 400×400).
 //
-// El mismo componente renderiza dos secciones con idéntico formato:
-//   <Team />                      → «¿QUIÉNES SOMOS?» (equipo, id="equipo")
-//   <Team grupo="colaboradores" /> → «COLABORADORES» (id="colaboradores")
+// El mismo componente renderiza los dos bloques con idéntico formato:
+//   <Team />                      → equipo (id="equipo")
+//   <Team grupo="colaboradores" /> → colaboradores (id="colaboradores")
 // Si la foto de una persona aún no existe en /public, la tarjeta muestra
 // sus iniciales en el mismo círculo; al agregar el archivo y recompilar,
 // la foto aparece sin tocar el código.
@@ -88,86 +89,53 @@ const members = (esColab ? colaboradores : equipo).map((m) => ({
 }));
 ---
 
-<section class:list={['team', { 'team--colab': esColab }]} id={esColab ? 'colaboradores' : 'equipo'}>
-  <div class="wrap">
-    <header class="team-head">
-      <div class="team-eyebrow">{esColab ? 'COLABORADORES' : '¿QUIÉNES SOMOS?'}</div>
-      {!esColab && <h2>El equipo detrás del gemelo digital.</h2>}
-    </header>
-    <div class="team-grid">
-      {
-        members.map((m) => (
-          <article class="member" data-reveal>
-            <div class="avatar">
-              {m.hasPhoto ? (
-                <img src={m.photo} alt={`Foto de ${m.name}`} loading="lazy" width="72" height="72" />
-              ) : (
-                <span class="avatar-initials" aria-hidden="true">{m.initials}</span>
-              )}
-            </div>
-            <h4>{m.name}</h4>
-            <div class="role">{m.role}</div>
-            <div class="member-links">
-              <a class="member-link email" href={`mailto:${m.email}`} aria-label={`Enviar email a ${m.name}`}>
-                <svg class="email-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <rect x="2.5" y="4.5" width="15" height="11" rx="2" />
-                  <path d="M2.5 6 L10 11 L17.5 6" />
-                </svg>
-                <span>{m.email}</span>
-              </a>
-              <a
-                class="member-link linkedin"
-                href={m.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`LinkedIn de ${m.name}`}
-              >
-                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <rect x="2.5" y="2.5" width="15" height="15" rx="2" />
-                  <path d="M6.4 8.4 L6.4 14" />
-                  <circle cx="6.4" cy="6" r="0.9" fill="currentColor" stroke="none" />
-                  <path d="M9.4 14 L9.4 8.4 M9.4 11 C 9.4 9.5 10.5 8.4 11.9 8.4 C 13.3 8.4 13.9 9.5 13.9 11 L13.9 14" />
-                </svg>
-              </a>
-            </div>
-          </article>
-        ))
-      }
-    </div>
+<div class:list={['team', { 'team--colab': esColab }]} id={esColab ? 'colaboradores' : 'equipo'}>
+  <div class="team-grid">
+    {
+      members.map((m) => (
+        <article class="member" data-reveal>
+          <div class="avatar">
+            {m.hasPhoto ? (
+              <img src={m.photo} alt={`Foto de ${m.name}`} loading="lazy" width="72" height="72" />
+            ) : (
+              <span class="avatar-initials" aria-hidden="true">{m.initials}</span>
+            )}
+          </div>
+          <h4>{m.name}</h4>
+          <div class="role">{m.role}</div>
+          <div class="member-links">
+            <a class="member-link email" href={`mailto:${m.email}`} aria-label={`Enviar email a ${m.name}`}>
+              <svg class="email-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2.5" y="4.5" width="15" height="11" rx="2" />
+                <path d="M2.5 6 L10 11 L17.5 6" />
+              </svg>
+              <span>{m.email}</span>
+            </a>
+            <a
+              class="member-link linkedin"
+              href={m.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`LinkedIn de ${m.name}`}
+            >
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2.5" y="2.5" width="15" height="15" rx="2" />
+                <path d="M6.4 8.4 L6.4 14" />
+                <circle cx="6.4" cy="6" r="0.9" fill="currentColor" stroke="none" />
+                <path d="M9.4 14 L9.4 8.4 M9.4 11 C 9.4 9.5 10.5 8.4 11.9 8.4 C 13.3 8.4 13.9 9.5 13.9 11 L13.9 14" />
+              </svg>
+            </a>
+          </div>
+        </article>
+      ))
+    }
   </div>
-</section>
+</div>
 
 <style>
+  /* Bloque sin fondo ni padding propios: los aporta .empresa */
   .team {
-    padding: 100px 0 120px;
-    background: rgba(3, 53, 68, 0.84);
-    color: var(--cream);
     position: relative;
-    overflow: hidden;
-  }
-  .wrap { position: relative; z-index: 1; }
-
-  .team-head {
-    max-width: 640px;
-    margin: 0 auto 52px;
-    text-align: center;
-  }
-  .team-eyebrow {
-    font-family: var(--font-title);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    color: var(--cyan);
-    opacity: 0.9;
-    margin-bottom: 14px;
-  }
-  h2 {
-    font-family: var(--font-title);
-    font-weight: 700;
-    font-size: 34px;
-    line-height: 1.2;
-    color: var(--cream);
-    margin: 0;
   }
 
   .team-grid {
@@ -177,15 +145,8 @@ const members = (esColab ? colaboradores : equipo).map((m) => ({
     max-width: 1180px;
     margin: 0 auto;
   }
-  /* Colaboradores: continúa visualmente la sección del equipo (mismo
-     fondo), sin repetir el padding superior; las tarjetas mantienen el
-     ancho de una columna del equipo y quedan centradas. */
-  .team--colab {
-    padding-top: 0;
-  }
-  .team--colab .team-head {
-    margin-bottom: 32px;
-  }
+  /* Colaboradores: las tarjetas mantienen el ancho de una columna del
+     equipo y quedan centradas. */
   .team--colab .team-grid {
     grid-template-columns: repeat(2, calc((100% - 44px) / 3));
     justify-content: center;
@@ -319,7 +280,6 @@ const members = (esColab ? colaboradores : equipo).map((m) => ({
   @media (max-width: 860px) {
     .team-grid,
     .team--colab .team-grid { grid-template-columns: 1fr; max-width: 480px; }
-    h2 { font-size: 26px; }
   }
 
   @media (prefers-reduced-motion: reduce) {

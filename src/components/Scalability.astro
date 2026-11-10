@@ -8,12 +8,12 @@
 //   3. Centro Histórico de Valparaíso — 5 puntos (pentágono irregular)
 ---
 
-<section class="scalability" id="escalable">
+<section class="scalability sec-dark" id="escalable">
   <div class="wrap">
     <div class="scal-grid">
       <div class="scal-copy">
-        <div class="eyebrow">ESCALABLE</div>
-        <h2>Troppo puede adaptarse a distintas zonas y ciudades.</h2>
+        <div class="eyebrow sec-title">Escalable</div>
+        <h2 class="sec-subtitle">Troppo puede adaptarse a distintas zonas y ciudades.</h2>
         <p class="scal-lead">
           Troppo puede extenderse a distintas zonas del país mediante un proceso
           de adaptación realizado por su equipo de desarrollo. Cada
@@ -243,22 +243,8 @@
     gap: 48px;
     align-items: center;
   }
-  .eyebrow {
-    font-family: var(--font-title);
-    font-size: 14px;
-    font-weight: 700; /* el título solo tiene 400/700 */
-    color: var(--cyan);
-    opacity: 0.9;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
   h2 {
-    font-family: var(--font-title);
-    font-weight: 700;
-    font-size: 34px;
     margin-top: 14px;
-    line-height: 1.2;
-    color: var(--cream);
   }
   .scal-lead {
     margin-top: 18px;
@@ -473,7 +459,6 @@
   @media (max-width: 860px) {
     .scal-grid { grid-template-columns: 1fr; gap: 32px; }
     .scal-viewport { aspect-ratio: 4 / 3; }
-    h2 { font-size: 26px; }
 
     /* HUD y zone-name apilados verticalmente para no chocar en pantalla
        angosta. Antes ambos estaban en top:16 y colisionaban. */

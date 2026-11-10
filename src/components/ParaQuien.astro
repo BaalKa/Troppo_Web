@@ -26,7 +26,7 @@ const audiencias = [
   },
   {
     icono: 'logistics',
-    tag: 'Operadores logísticos',
+    tag: 'Organizaciones privadas',
     titulo: 'Entidades grandes con rutas propias',
     dolor: 'Flotas de carga con rutas fijas, complicaciones que se traducen directamente en costos operacionales y OPEX inflado.',
     solucion: 'Podrás optimizar tus rutas propias coordinando la flota con la red pública, midiendo el impacto por escenario.',
@@ -35,14 +35,13 @@ const audiencias = [
 ];
 ---
 
-<section class="paraq" id="para-quien">
+<section class="paraq sec-dark" id="para-quien">
   <div class="wrap">
     <header class="paraq-head">
-      <div class="paraq-eyebrow" data-vh>
-        <span class="eyebrow-mark" aria-hidden="true"></span>
-        ¿PARA QUIÉN ES TROPPO?
+      <div class="paraq-eyebrow sec-title" data-vh>
+        ¿Para quién es Troppo?
       </div>
-      <h2 data-vh>Para cualquier entidad con congestión en una zona crítica y <em>capacidad de decidir sobre ella.</em></h2>
+      <h2 class="sec-subtitle" data-vh>Para cualquier entidad con congestión en una zona crítica y <em>capacidad de decidir sobre ella.</em></h2>
       <p data-vh>
         No importa el tamaño ni el rubro: si tienes potestad para modificar
         semaforización, ordenar accesos o coordinar flotas en una zona
@@ -151,37 +150,10 @@ const audiencias = [
   .paraq-eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 14px;
-    font-family: var(--font-title);
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: var(--cyan);
-    text-transform: uppercase;
     margin-bottom: 24px;
   }
-  .paraq-eyebrow .eyebrow-mark {
-    display: inline-block;
-    width: 0;
-    height: 2px;
-    background: var(--cyan);
-    box-shadow: 0 0 8px rgba(97, 225, 230, 0.6);
-    border-radius: 2px;
-    transition: width 900ms cubic-bezier(0.16, 1, 0.3, 1) 100ms;
-  }
-  .paraq-eyebrow.revealed .eyebrow-mark { width: 42px; }
   .paraq-head h2 {
-    font-family: var(--font-title);
-    font-weight: 700;
-    font-size: 40px;
-    line-height: 1.2;
-    color: var(--cream);
     margin: 0;
-    letter-spacing: -0.4px;
-  }
-  .paraq-head h2 em {
-    font-style: italic;
-    color: var(--cyan);
   }
   .paraq-head p {
     margin: 22px auto 0;
@@ -347,7 +319,6 @@ const audiencias = [
   /* --- MOBILE --- */
   @media (max-width: 960px) {
     .paraq-grid { grid-template-columns: 1fr; gap: 16px; max-width: 480px; }
-    .paraq-head h2 { font-size: 26px; }
     .pq-audience { padding: 28px 24px; }
   }
 

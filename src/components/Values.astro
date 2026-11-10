@@ -4,13 +4,12 @@
 // para decidir + monitoreo y operación en tiempo real (gemelo digital).
 ---
 
-<section class="values" id="ofrece">
+<section class="values sec-dark" id="ofrece">
   <div class="wrap">
     <div class="values-head">
       <div class="values-head-left">
-        <div class="values-eyebrow" data-vh>
-          <span class="eyebrow-mark" aria-hidden="true"></span>
-          ¿QUÉ OFRECE TROPPO?
+        <div class="values-eyebrow sec-title" data-vh>
+          ¿Qué ofrece Troppo?
         </div>
         <p data-vh>
           Troppo integra simulación, optimización mediante inteligencia
@@ -21,7 +20,8 @@
           operación y actuar cuando sea necesario.
         </p>
       </div>
-      <h2 class="values-h2">
+      <!-- Lista de 4 etapas (no es el subtítulo de la sección) -->
+      <div class="values-h2">
         <span class="v-phrase" data-vh>
           <span class="v-num" aria-hidden="true">01</span>
           <span class="v-text"><em>Simular</em> escenarios.</span>
@@ -38,7 +38,7 @@
           <span class="v-num" aria-hidden="true">04</span>
           <span class="v-text"><em>Monitorear</em> y operar.</span>
         </span>
-      </h2>
+      </div>
     </div>
     <div class="value-grid">
       <article class="value-card value-card--grid" data-reveal>
@@ -177,54 +177,49 @@
 
   .wrap { position: relative; z-index: 1; }
 
+  /* Grid del encabezado: el título arriba a la izquierda y, en la fila
+     siguiente, el texto (izquierda) y la lista de etapas (derecha)
+     alineados entre sí. .values-head-left usa display: contents para que
+     el título y el párrafo participen directamente del grid. */
   .values-head {
     display: grid;
     grid-template-columns: 0.9fr 1.1fr;
-    gap: 60px;
-    align-items: start;
+    grid-template-areas:
+      "title ."
+      "text  list";
+    column-gap: 60px;
+    align-items: center;
   }
   .values-head-left {
-    padding-top: 22px;
+    display: contents;
   }
 
-  /* Eyebrow más prominente — 15px con marca cyan que se dibuja */
+  /* Título de la sección (tipografía en global.css → .sec-title) */
   .values-eyebrow {
+    grid-area: title;
     display: inline-flex;
     align-items: center;
-    gap: 14px;
-    font-family: var(--font-title);
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: var(--cyan);
-    text-transform: uppercase;
     margin-bottom: 28px;
   }
-  .eyebrow-mark {
-    display: inline-block;
-    width: 0;
-    height: 2px;
-    background: var(--cyan);
-    box-shadow: 0 0 8px rgba(97, 225, 230, 0.6);
-    border-radius: 2px;
-    transition: width 900ms cubic-bezier(0.16, 1, 0.3, 1) 100ms;
-  }
-  .values-eyebrow[data-vh].revealed .eyebrow-mark {
-    width: 42px;
-  }
 
-  /* H2 en 3 frases apiladas, cada una con badge de número */
+  /* Lista de 4 etapas apiladas, cada una con badge de número. Algo más
+     chica que el título de la sección; destacados en verde Troppo. */
   .values-h2 {
-    font-family: var(--font-title);
-    font-weight: 700;
-    font-size: 46px;
-    line-height: 1.15;
-    color: var(--cream);
+    grid-area: list;
     margin: 0;
     display: flex;
     flex-direction: column;
     gap: 6px;
-    letter-spacing: -0.5px;
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: calc(var(--sec-title-size) - 6px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+  }
+  .v-text em {
+    font-style: italic;
+    color: var(--lime);
   }
   .v-phrase {
     display: inline-flex;
@@ -257,13 +252,9 @@
   }
   .v-phrase.revealed .v-num::after { opacity: 1; }
   .v-phrase:last-child .v-num::after { display: none; }
-  .v-text em {
-    font-style: italic;
-    color: var(--cyan);
-    font-weight: 700;
-  }
 
   .values-head p {
+    grid-area: text;
     color: rgba(255, 248, 234, 0.85);
     font-size: 16px;
     line-height: 1.65;
@@ -290,15 +281,15 @@
   @media (max-width: 860px) {
     .values-head {
       grid-template-columns: 1fr;
-      gap: 28px;
+      grid-template-areas:
+        "title"
+        "text"
+        "list";
+      row-gap: 28px;
     }
-    .values-head-left { padding-top: 0; }
-    .values-h2 { font-size: 30px; }
+    .values-eyebrow { margin-bottom: 0; }
     .v-num { font-size: 11px; min-width: 26px; padding-top: 8px; }
     .v-phrase { gap: 12px; }
-    .values-eyebrow { font-size: 13px; letter-spacing: 2.4px; }
-    .eyebrow-mark { height: 1.5px; }
-    .values-eyebrow[data-vh].revealed .eyebrow-mark { width: 32px; }
     .values-head p { font-size: 14.5px; padding-left: 14px; }
   }
 
@@ -524,7 +515,6 @@
       transform: none;
       transition: none;
     }
-    .eyebrow-mark { width: 42px; transition: none; }
     .v-num::after { opacity: 1; transition: none; }
     .value-card,
     .icon-wrap,

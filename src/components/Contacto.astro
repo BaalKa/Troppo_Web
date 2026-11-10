@@ -34,14 +34,16 @@ const canales = [
 ];
 ---
 
-<section class="contacto" id="contacto">
+<section class="contacto sec-light" id="contacto">
   <div class="wrap">
     <header class="contacto-head">
-      <div class="contacto-eyebrow">
-        <span class="eyebrow-mark" aria-hidden="true"></span>
-        CONTACTO
+      <div class="contacto-eyebrow sec-title">
+        Contacto
       </div>
-      <h2>Escríbenos o síguenos <em>en nuestras redes.</em></h2>
+      <h2 class="sec-subtitle">Escríbenos o síguenos <em>en nuestras redes.</em></h2>
+      <p class="contacto-hint">
+        Haz clic en cualquiera de nuestros contactos para comunicarte con nosotros.
+      </p>
     </header>
 
     <ul class="contacto-grid">
@@ -105,35 +107,18 @@ const canales = [
   .contacto-eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 14px;
-    font-family: var(--font-title);
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: var(--cyan-ink);
-    text-transform: uppercase;
     margin-bottom: 24px;
   }
-  .eyebrow-mark {
-    display: inline-block;
-    width: 42px;
-    height: 2px;
-    background: var(--cyan-ink);
-    box-shadow: 0 0 8px rgba(10, 107, 118, 0.45);
-    border-radius: 2px;
-  }
   .contacto h2 {
-    font-family: var(--font-title);
-    font-weight: 700;
-    font-size: 42px;
-    line-height: 1.18;
-    color: var(--navy);
     margin: 0;
-    letter-spacing: -0.4px;
   }
-  .contacto h2 em {
-    font-style: italic;
-    color: var(--cyan-ink);
+  /* Indicación de que las tarjetas de contacto son clicables */
+  .contacto-hint {
+    margin: 16px auto 0;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(21, 27, 32, 0.72);
   }
 
   /* ---- TARJETAS (gradient cyan sutil → blanco, como stat-card / hito) ---- */
@@ -204,8 +189,7 @@ const canales = [
   @media (max-width: 860px) {
     .contacto { padding: 72px 0 80px; }
     .contacto-head { margin-bottom: 36px; }
-    .contacto-eyebrow { font-size: 13px; letter-spacing: 2.4px; }
-    .contacto h2 { font-size: 28px; }
+    .contacto-hint { font-size: 14.5px; }
     .contacto-grid {
       grid-template-columns: 1fr;
       gap: 14px;

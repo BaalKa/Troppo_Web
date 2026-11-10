@@ -1,21 +1,48 @@
 ---
 // Sección "Desafío" — único llamado a la acción de cierre, después de
 // Contacto y antes de la sección de la Feria de Software.
-// Fragmento editorial (sin card) que respira sobre el fondo navy.
+// Fragmento editorial sobre el fondo navy: título + 4 tarjetas (número +
+// título) con las capacidades de Troppo + invitación a conversar.
+
+const capacidades = [
+  {
+    num: '01',
+    titulo: 'Definir escenarios',
+  },
+  {
+    num: '02',
+    titulo: 'Simular alternativas',
+  },
+  {
+    num: '03',
+    titulo: 'Optimizar con IA',
+  },
+  {
+    num: '04',
+    titulo: 'Monitorear y operar',
+  },
+];
 ---
 
-<section class="desafio" id="desafio">
+<section class="desafio sec-dark" id="desafio">
   <div class="wrap">
     <div class="desafio-inner">
-      <span class="desafio-eyebrow">¿Tienes algún desafío de movilidad?</span>
-      <h2>
+      <span class="desafio-eyebrow sec-title">¿Tienes algún desafío de movilidad?</span>
+      <h2 class="sec-subtitle">
         Hoy Troppo comienza en el puerto.
         <em>Mañana, en tu infraestructura.</em>
       </h2>
-      <p>
-        Con Troppo puedes definir el escenario, evaluar alternativas mediante
-        simulación y optimización con IA y, una vez implementadas las mejoras,
-        monitorear y operar la red vial en tiempo real mediante el gemelo digital.
+      <ul class="desafio-cards">
+        {
+          capacidades.map((c) => (
+            <li class="desafio-card">
+              <span class="desafio-card-num" aria-hidden="true">{c.num}</span>
+              <h3>{c.titulo}</h3>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="desafio-invite">
         Cuéntanos tu desafío de movilidad y conversemos sobre cómo aplicar Troppo.
       </p>
     </div>
@@ -42,7 +69,9 @@
   .wrap { position: relative; z-index: 1; }
 
   .desafio-inner {
-    max-width: 780px;
+    /* 1080px para que las 4 tarjetas quepan en una fila; el h2 y la
+       invitación mantienen su propio max-width centrado. */
+    max-width: 1080px;
     margin: 0 auto;
     text-align: center;
     position: relative;
@@ -67,29 +96,12 @@
 
   .desafio-eyebrow {
     display: inline-block;
-    font-family: var(--font-title);
-    font-size: 11.5px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--cyan);
-    opacity: 0.9;
     margin-bottom: 22px;
   }
 
   h2 {
-    font-family: var(--font-title);
-    font-weight: 700;
-    font-size: clamp(28px, 3.6vw, 42px);
-    line-height: 1.18;
-    color: var(--cream);
     margin: 0 auto;
     max-width: 680px;
-    letter-spacing: -0.3px;
-  }
-  h2 em {
-    font-style: italic;
-    color: var(--cyan);
   }
 
   p {
@@ -113,6 +125,52 @@
     transform: translateY(0);
   }
 
+  /* ---- Tarjetas de capacidades ---- */
+  .desafio-cards {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 40px 0 0;
+    padding: 0;
+    text-align: left;
+  }
+  .desafio-card {
+    background: rgba(255, 248, 234, 0.04);
+    border: 1px solid rgba(255, 248, 234, 0.14);
+    border-radius: 16px;
+    padding: 22px 20px 24px;
+  }
+  .desafio-card-num {
+    display: block;
+    font-family: var(--font-title);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--cyan);
+    margin-bottom: 14px;
+  }
+  .desafio-card h3 {
+    font-family: var(--font-title);
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--cream);
+    margin: 0;
+  }
+  .desafio-invite {
+    margin-top: 34px;
+    color: rgba(255, 248, 234, 0.9);
+    font-weight: 500;
+  }
+
+  @media (max-width: 960px) {
+    .desafio-cards { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .desafio-cards { grid-template-columns: 1fr; gap: 12px; margin-top: 30px; }
+  }
+
   @media (max-width: 860px) {
     .desafio { padding: 72px 0 80px; }
     .desafio-inner::before,
@@ -121,10 +179,6 @@
     }
     .desafio-inner::before { margin-bottom: 22px; }
     .desafio-inner::after  { margin-top: 22px; }
-    .desafio-eyebrow {
-      font-size: 10.5px;
-      letter-spacing: 2.4px;
-    }
     p { font-size: 14.5px; }
   }
 

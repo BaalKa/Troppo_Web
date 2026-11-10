@@ -47,10 +47,17 @@
 </section>
 
 <style>
-  /* Mismo fondo y padding que tenía la sección contenedora (.final) */
+  /* Fondo navy 0.85 (el de la antigua sección .final). Los primeros
+     160px son un degradado que arranca en el navy 0.68 con que termina
+     Desafio (CTA) y llega al 0.85: la unión entre ambas secciones no
+     tiene corte. Más abajo el color es el 0.85 de siempre. */
   .feria {
     padding: 110px 0 130px;
-    background: rgba(4, 69, 89, 0.85);
+    background: linear-gradient(
+      180deg,
+      rgba(4, 69, 89, 0.68) 0,
+      rgba(4, 69, 89, 0.85) 160px
+    );
     color: var(--cream);
     position: relative;
     overflow: hidden;

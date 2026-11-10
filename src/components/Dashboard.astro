@@ -7,17 +7,17 @@
 //     contenido aparece con stagger.
 ---
 
-<section class="dashboard-section">
+<section class="dashboard-section sec-dark">
   <div class="wrap">
     <div class="dash-head">
-      <div class="eyebrow">VISTA DE RESULTADOS</div>
-      <h2>Herramientas integradas para gestionar la red vial.</h2>
+      <div class="eyebrow sec-title">Vista de resultados</div>
+      <h2 class="sec-subtitle">Herramientas integradas para gestionar la red vial.</h2>
       <p>
         La aplicación de Troppo reúne las herramientas necesarias para
         configurar y ejecutar simulaciones, analizar resultados, iniciar
         procesos de optimización con IA y monitorear la red vial mediante el
-        gemelo digital. Está diseñada para instalarse y ejecutarse en los
-        computadores del cliente.
+        gemelo digital. Está diseñada para <strong>instalarse y ejecutarse en
+        los computadores del cliente</strong>.
       </p>
     </div>
 
@@ -195,22 +195,8 @@
     max-width: 640px;
     margin-bottom: 60px;
   }
-  .eyebrow {
-    font-family: var(--font-title);
-    font-size: 14px;
-    font-weight: 700; /* el título solo tiene 400/700 */
-    color: var(--cyan);
-    opacity: 0.9;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
   h2 {
-    font-family: var(--font-title);
-    font-weight: 700;
-    font-size: 38px;
     margin-top: 14px;
-    line-height: 1.2;
-    color: var(--cream);
   }
   .dash-head p {
     margin-top: 16px;
@@ -934,7 +920,6 @@
       width: 230px;
     }
     .rd-stage::after { display: none; }
-    h2 { font-size: 30px; }
     .rd-h { font-size: 15px; }
     .rd-kpi b { font-size: 16px; }
   }

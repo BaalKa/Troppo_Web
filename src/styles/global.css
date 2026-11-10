@@ -69,6 +69,12 @@
   /* Layout */
   --wrap-max: 1180px;
   --wrap-padding: 32px;
+
+  /* Encabezados de sección (todas menos el Home): el TÍTULO (nombre de
+     la sección, p. ej. "VISTA DE RESULTADOS") es el elemento grande y el
+     SUBTÍTULO (la frase debajo) el secundario. */
+  --sec-title-size: 38px;
+  --sec-subtitle-size: 24px;
 }
 
 *,
@@ -125,5 +131,48 @@ button {
 @media (max-width: 860px) {
   :root {
     --wrap-padding: 20px;
+    --sec-title-size: 30px;
+    --sec-subtitle-size: 20px;
   }
+}
+
+/* ============================================================
+   Jerarquía de encabezados de sección
+   - .sec-dark / .sec-light en el <section> fijan los colores según
+     su fondo (azul / claro).
+   - .sec-title: título de la sección, escritura normal (mayúsculas y
+     minúsculas según redacción), negrita, color normal del fondo.
+   - .sec-subtitle: subtítulo en MAYÚSCULAS, sin negrita; las palabras
+     destacadas (<em>) usan el color de acento del fondo.
+   Los componentes sólo definen layout (márgenes, alineación); la
+   tipografía y el color de estos encabezados viven aquí.
+   ============================================================ */
+.sec-dark {
+  --sec-text: var(--cream);  /* #FFF8EA */
+  --sec-accent: var(--cyan); /* #61E1E6 */
+}
+.sec-light {
+  --sec-text: var(--navy);       /* #044559 */
+  --sec-accent: var(--cyan-ink); /* #0A6B76, acento sobre fondos claros */
+}
+.sec-title {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: var(--sec-title-size);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--sec-text);
+}
+.sec-subtitle {
+  font-family: var(--font-title);
+  font-weight: 400;
+  font-size: var(--sec-subtitle-size);
+  line-height: 1.35;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--sec-text);
+}
+.sec-subtitle em {
+  font-style: italic;
+  color: var(--sec-accent);
 }
