@@ -1,16 +1,16 @@
 ---
-// Dashboard mockup — laptop que "se enciende" al entrar al viewport.
-// Muestra la app real de Troppo (basado en sumo_v2) con:
-//   - Laptop: panel de simulaciones activas + KPIs + lista de ejecuciones
-//   - Animaciones: tapa se abre, pantalla se prende, contenido aparece
-//     con stagger.
-// Sección de fondo claro (mismo beige que "¿Cómo se ve?").
+// Sección "¿Cómo se ve?" — laptop que "se enciende" al entrar al viewport
+// y muestra en su pantalla un video real de la interfaz de Troppo
+// (public/videos/interfaz_troppo.mp4, 1920×1080, zona útil 1920×946) en bucle, silenciado y
+// sin controles: es sólo demostrativo.
+//   - Animaciones: tapa se abre, splash con el logo, aparece el video.
+// Sección de fondo claro (beige).
 ---
 
 <section class="dashboard-section sec-light">
   <div class="wrap">
     <div class="dash-head">
-      <div class="eyebrow sec-title">Vista de resultados</div>
+      <div class="eyebrow sec-title">¿Cómo se ve?</div>
       <h2 class="sec-subtitle">Herramientas integradas para gestionar la red vial.</h2>
       <p>
         La aplicación de Troppo reúne las herramientas necesarias para
@@ -29,84 +29,26 @@
           <div class="rd-display">
             <!-- Boot splash: logo Troppo beige sobre cyan oscuro que
                  aparece al "encender" el laptop y se desvanece para
-                 revelar la app. -->
+                 revelar el video. -->
             <div class="rd-boot" aria-hidden="true">
               <img src="/images/logo/logo_troppo_beige_grande.png" alt="" />
             </div>
-            <div class="rd-app">
-              <!-- Rail izquierdo con íconos -->
-              <aside class="rd-rail">
-                <span class="rd-mark"></span>
-                <i class="on"></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-              </aside>
-
-              <!-- Panel principal -->
-              <div class="rd-main">
-                <div class="rd-top">
-                  <div class="rd-title">
-                    <span class="rd-h">Simulaciones activas</span>
-                    <span class="rd-subtle">SUMO v2 · Puerto San Antonio</span>
-                  </div>
-                  <span class="rd-live">
-                    <span class="rd-live-dot"></span>EN VIVO · 04:16
-                  </span>
-                </div>
-
-                <div class="rd-kpis">
-                  <div class="rd-kpi">
-                    <b>3.240</b>
-                    <span>vehículos activos</span>
-                  </div>
-                  <div class="rd-kpi">
-                    <b>2.6<small>s</small></b>
-                    <span>espera promedio</span>
-                  </div>
-                  <div class="rd-kpi rd-kpi-hl">
-                    <b>−44%</b>
-                    <span>reducción CO₂</span>
-                  </div>
-                </div>
-
-                <div class="rd-list">
-                  <div class="rd-row rd-good">
-                    <div class="rd-row-head">
-                      <span class="rd-tag">FLUJO IA</span>
-                      <span class="rd-id">run-2026-011</span>
-                      <span class="rd-time">04:12</span>
-                    </div>
-                    <p class="rd-row-title">Ruta logística — optimización activa</p>
-                    <p class="rd-row-svcs">rotonda · acceso norte · vía central</p>
-                    <div class="rd-progress"><span style="width:82%"></span></div>
-                  </div>
-
-                  <div class="rd-row rd-warn">
-                    <div class="rd-row-head">
-                      <span class="rd-tag">CONTINGENCIA</span>
-                      <span class="rd-id">run-2026-010</span>
-                      <span class="rd-time">03:58</span>
-                    </div>
-                    <p class="rd-row-title">Ruta Norte — accidente, redirigiendo</p>
-                    <p class="rd-row-svcs">ruta norte · ruta logística · ruta sur</p>
-                    <div class="rd-progress"><span style="width:46%"></span></div>
-                  </div>
-
-                  <div class="rd-row rd-good">
-                    <div class="rd-row-head">
-                      <span class="rd-tag">CARGA</span>
-                      <span class="rd-id">run-2026-009</span>
-                      <span class="rd-time">03:41</span>
-                    </div>
-                    <p class="rd-row-title">Rotonda Central — prioridad carga</p>
-                    <p class="rd-row-svcs">ruta logística · vía central</p>
-                    <div class="rd-progress"><span style="width:91%"></span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <!-- Video de la interfaz de Troppo: demostración en bucle,
+                 silenciado, sin controles ni interacción. Se carga y
+                 reproduce sólo cuando la sección se acerca al viewport. -->
+            <video
+              class="rd-video"
+              src="/videos/interfaz_troppo.mp4"
+              muted
+              loop
+              playsinline
+              preload="none"
+              disablepictureinpicture
+              disableremoteplayback
+              controlslist="nodownload nofullscreen noremoteplayback noplaybackrate"
+              tabindex="-1"
+              aria-hidden="true"
+            ></video>
           </div>
         </div>
         <div class="rd-hinge"></div>
@@ -141,7 +83,7 @@
      ======================================================== */
   .rd-stage {
     position: relative;
-    max-width: 960px;
+    max-width: 1180px;
     margin: 0 auto;
     /* Sin celular: el laptop queda centrado y sin reserva lateral */
     padding: 40px 0;
@@ -168,7 +110,9 @@
   .rd-laptop {
     position: relative;
     z-index: 1;
-    width: min(820px, 100%);
+    /* Grande para que la interfaz del video se lea bien; nunca más ancho
+       que el contenedor (en pantallas chicas ocupa el 100%). */
+    width: min(1060px, 100%);
     margin: 0 auto;
     filter: drop-shadow(0 30px 40px rgba(4, 69, 89, 0.18));
   }
@@ -197,7 +141,25 @@
     overflow: hidden;
     background: #0b0d10;
     border-radius: 2px;
-    aspect-ratio: 16 / 10;
+    /* La grabación (1920×1080) trae franjas negras propias: 82px arriba y
+       52px abajo. La pantalla toma la proporción de la zona útil
+       (1920×946) para que el video la llene sin franjas ni recortes
+       laterales. */
+    aspect-ratio: 1920 / 946;
+  }
+  /* Video demostrativo de la interfaz: ancho completo y desplazado hacia
+     arriba lo justo para que las franjas queden fuera (overflow hidden del
+     display). Sin controles ni interacción (pointer-events: none). */
+  .rd-video {
+    position: absolute;
+    left: 0;
+    top: calc(-82 / 946 * 100%);
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    display: block;
+    pointer-events: none;
+    user-select: none;
   }
   .rd-display::after {
     /* Overlay sutil de reflejo en pantalla */
@@ -211,7 +173,7 @@
 
   /* ============ BOOT SPLASH (laptop) ============
      Logo Troppo beige sobre cyan bien oscuro. Aparece cuando "se
-     enciende" el dispositivo y se desvanece para revelar la app. */
+     enciende" el dispositivo y se desvanece para revelar el video. */
   .rd-boot {
     position: absolute;
     inset: 0;
@@ -267,200 +229,6 @@
     border-radius: 0 0 6px 6px;
   }
 
-  /* ---------------- App inside laptop ---------------- */
-  .rd-app {
-    display: grid;
-    grid-template-columns: 50px 1fr;
-    background: var(--navy);
-    height: 100%;
-    font-family: var(--font-sans);
-  }
-  .rd-rail {
-    background: var(--navy-deep);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 0;
-    border-right: 1px solid rgba(255, 248, 234, 0.08);
-  }
-  .rd-mark {
-    width: 22px;
-    height: 22px;
-    border-radius: 7px;
-    background: var(--cyan);
-    margin-bottom: 8px;
-    box-shadow: 0 0 12px rgba(97, 225, 230, 0.5);
-  }
-  .rd-rail i {
-    width: 22px;
-    height: 4px;
-    border-radius: 2px;
-    background: rgba(255, 248, 234, 0.18);
-    transition: background 200ms ease;
-  }
-  .rd-rail i.on {
-    background: var(--lime);
-    box-shadow: 0 0 6px rgba(209, 235, 120, 0.5);
-  }
-  .rd-main {
-    padding: 16px 20px;
-    min-width: 0;
-    color: var(--cream);
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .rd-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 14px;
-  }
-  .rd-title {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .rd-h {
-    font-family: var(--font-title);
-    font-size: 17px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    line-height: 1;
-  }
-  .rd-subtle {
-    font-size: 10px;
-    color: rgba(255, 248, 234, 0.5);
-    letter-spacing: 0.4px;
-  }
-  .rd-live {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 9.5px;
-    font-weight: 700;
-    letter-spacing: 1.3px;
-    color: var(--cyan);
-    padding: 4px 8px;
-    border: 1px solid rgba(97, 225, 230, 0.35);
-    border-radius: 100px;
-  }
-  .rd-live-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--cyan);
-    box-shadow: 0 0 6px var(--cyan);
-    animation: rd-pulse 1.4s ease-in-out infinite;
-  }
-  @keyframes rd-pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.7); }
-  }
-
-  .rd-kpis {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
-  .rd-kpi {
-    background: rgba(255, 248, 234, 0.04);
-    border: 1px solid rgba(255, 248, 234, 0.08);
-    border-radius: 8px;
-    padding: 10px 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .rd-kpi b {
-    font-family: var(--font-title);
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--cream);
-    line-height: 1;
-    font-variant-numeric: tabular-nums;
-  }
-  .rd-kpi b small {
-    font-size: 12px;
-    color: rgba(255, 248, 234, 0.55);
-  }
-  .rd-kpi span {
-    font-size: 9.5px;
-    color: rgba(255, 248, 234, 0.55);
-    letter-spacing: 0.3px;
-  }
-  .rd-kpi-hl b {
-    color: var(--lime);
-  }
-
-  .rd-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex: 1;
-    min-height: 0;
-  }
-  .rd-row {
-    background: rgba(255, 248, 234, 0.04);
-    border-left: 3px solid var(--lime);
-    border-radius: 6px;
-    padding: 9px 12px;
-  }
-  .rd-row.rd-warn { border-left-color: #ffc93c; }
-  .rd-row-head {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 9px;
-    letter-spacing: 1px;
-    font-weight: 700;
-  }
-  .rd-tag {
-    color: var(--lime);
-    padding: 2px 6px;
-    background: rgba(209, 235, 120, 0.12);
-    border-radius: 3px;
-  }
-  .rd-warn .rd-tag {
-    color: #ffc93c;
-    background: rgba(255, 201, 60, 0.12);
-  }
-  .rd-id {
-    color: rgba(255, 248, 234, 0.5);
-    font-family: var(--font-sans);
-  }
-  .rd-time {
-    color: rgba(255, 248, 234, 0.5);
-    margin-left: auto;
-    font-variant-numeric: tabular-nums;
-  }
-  .rd-row-title {
-    font-size: 12px;
-    color: var(--cream);
-    font-weight: 500;
-    margin-top: 5px;
-  }
-  .rd-row-svcs {
-    font-size: 10px;
-    color: rgba(255, 248, 234, 0.5);
-    margin-top: 2px;
-  }
-  .rd-progress {
-    margin-top: 8px;
-    height: 3px;
-    background: rgba(255, 248, 234, 0.08);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .rd-progress span {
-    display: block;
-    height: 100%;
-    background: var(--lime);
-    border-radius: 2px;
-  }
-  .rd-warn .rd-progress span { background: #ffc93c; }
-
   /* ========================================================
      ANIMACIONES — usa transitions con delays (más robusto que
      @keyframes + fill:both para persistir el estado final).
@@ -468,12 +236,7 @@
      Al remover .pre, las transitions llevan al estado visible.
      ======================================================== */
 
-  /* Definir transitions en el estado normal */
-  .rd-app,
-  .rd-row,
-  .rd-lid {
-    transition: opacity 500ms ease-out, transform 500ms cubic-bezier(0.4, 0.05, 0.25, 1);
-  }
+  /* Transición de la tapa en el estado normal */
   .rd-lid {
     transition: transform 1400ms cubic-bezier(0.4, 0.05, 0.25, 1);
     transform: rotateX(0deg);
@@ -487,16 +250,9 @@
   .rd-stage.exiting .rd-lid {
     transform: rotateX(-92deg);
   }
-  .rd-stage.pre .rd-app,
-  .rd-stage.pre .rd-row,
-  .rd-stage.exiting .rd-app,
-  .rd-stage.exiting .rd-row {
-    opacity: 0;
-  }
+
   /* Snap instantáneo sólo en el mount inicial (.pre) */
-  .rd-stage.pre .rd-lid,
-  .rd-stage.pre .rd-app,
-  .rd-stage.pre .rd-row {
+  .rd-stage.pre .rd-lid {
     transition-duration: 0s;
   }
 
@@ -504,20 +260,8 @@
   .rd-stage:not(.pre):not(.exiting) .rd-lid {
     transition-delay: 300ms;
   }
-  .rd-stage:not(.pre):not(.exiting) .rd-app {
-    transition-delay: 1300ms;
-  }
-  .rd-stage:not(.pre):not(.exiting) .rd-list .rd-row:nth-child(1) { transition-delay: 1600ms; }
-  .rd-stage:not(.pre):not(.exiting) .rd-list .rd-row:nth-child(2) { transition-delay: 1750ms; }
-  .rd-stage:not(.pre):not(.exiting) .rd-list .rd-row:nth-child(3) { transition-delay: 1900ms; }
 
-  /* Delays de SALIDA (.exiting) — orden inverso, más rápido:
-     primero desaparecen las filas del laptop, después la app del laptop,
-     y finalmente se cierra la tapa */
-  .rd-stage.exiting .rd-list .rd-row:nth-child(3) { transition-delay: 180ms; }
-  .rd-stage.exiting .rd-list .rd-row:nth-child(2) { transition-delay: 260ms; }
-  .rd-stage.exiting .rd-list .rd-row:nth-child(1) { transition-delay: 340ms; }
-  .rd-stage.exiting .rd-app { transition-delay: 420ms; }
+  /* Cierre (.exiting): la tapa se cierra */
   .rd-stage.exiting .rd-lid {
     transition-delay: 550ms;
     transition-duration: 900ms;
@@ -525,11 +269,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .rd-stage.pre .rd-lid,
-    .rd-stage.pre .rd-app,
-    .rd-stage.pre .rd-row,
-    .rd-stage.exiting .rd-lid,
-    .rd-stage.exiting .rd-app,
-    .rd-stage.exiting .rd-row {
+    .rd-stage.exiting .rd-lid {
       transform: none;
       opacity: 1;
     }
@@ -542,39 +282,6 @@
       padding: 20px 0 0;
     }
     .rd-stage::after { display: none; }
-    .rd-h { font-size: 15px; }
-    .rd-kpi b { font-size: 16px; }
-  }
-
-  /* Ajuste extra para pantallas angostas (~<480px): la UI dentro del
-     laptop se comprime todavía más para que las 3 KPIs y las filas
-     quepan sin cortarse por la derecha. */
-  @media (max-width: 480px) {
-    .rd-app {
-      grid-template-columns: 32px 1fr;
-    }
-    .rd-rail {
-      padding: 10px 0;
-      gap: 7px;
-    }
-    .rd-mark { width: 16px; height: 16px; margin-bottom: 5px; }
-    .rd-rail i { width: 14px; height: 3px; }
-    .rd-main { padding: 10px 10px; gap: 10px; }
-    .rd-top { gap: 8px; }
-    .rd-h { font-size: 13px; }
-    .rd-subtle { font-size: 8.5px; }
-    .rd-live { font-size: 8px; padding: 3px 6px; letter-spacing: 1px; }
-    .rd-live-dot { width: 4px; height: 4px; }
-    .rd-kpis { gap: 6px; }
-    .rd-kpi { padding: 7px 8px; }
-    .rd-kpi b { font-size: 13.5px; }
-    .rd-kpi b small { font-size: 9.5px; }
-    .rd-kpi span { font-size: 8px; }
-    .rd-row { padding: 7px 9px; }
-    .rd-row-head { font-size: 8px; }
-    .rd-tag { padding: 1px 4px; }
-    .rd-row-title { font-size: 10.5px; margin-top: 4px; }
-    .rd-row-svcs { font-size: 9px; }
   }
 </style>
 
@@ -587,7 +294,122 @@
   // Este enfoque es más robusto que @keyframes con fill:both porque las
   // transitions naturalmente persisten al estado final (no dependen de que
   // el navegador respete correctamente el fill mode contra la cascada).
+  //
+  // Video: queda detenido en su primer fotograma mientras el laptop se
+  // abre y arranca recién cuando termina la apertura: la transición de la
+  // tapa (transitionend) Y el splash del logo (animationend). Sin tiempos
+  // fijos. Al cerrarse el laptop se pausa; si el visitante vuelve, sigue
+  // desde donde quedó (no se reinicia).
   const stage = document.querySelector<HTMLElement>('.rd-stage');
+  const lid = stage?.querySelector<HTMLElement>('.rd-lid');
+  const boot = stage?.querySelector<HTMLElement>('.rd-boot');
+  const video = stage?.querySelector<HTMLVideoElement>('.rd-video');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- Control del video ----
+  let opened = false; // true cuando la apertura del laptop terminó
+  let cycle = 0; // identifica cada apertura (descarta eventos viejos)
+  let cleanupOpen: (() => void) | null = null;
+  let fallbackArmed = false;
+
+  const play = () => {
+    video?.play().catch(armFallback);
+  };
+  const sync = () => {
+    if (!video) return;
+    if (opened && !document.hidden) {
+      if (video.paused) play();
+    } else if (!video.paused) {
+      video.pause();
+    }
+  };
+  // Si el navegador bloquea el autoplay (p. ej. modo ahorro de energía),
+  // la demostración arranca con la primera interacción del visitante en
+  // cualquier parte de la página, sin mostrar controles.
+  function armFallback() {
+    if (fallbackArmed || !video) return;
+    fallbackArmed = true;
+    const events = ['pointerdown', 'touchstart', 'keydown', 'scroll'] as const;
+    const resume = () => {
+      if (!opened) return;
+      video.play().then(() => {
+        events.forEach((ev) => window.removeEventListener(ev, resume));
+        fallbackArmed = false;
+      }).catch(() => {});
+    };
+    events.forEach((ev) => window.addEventListener(ev, resume, { passive: true }));
+  }
+
+  // Apertura: espera a que terminen la tapa y el splash del logo.
+  const onOpenStart = () => {
+    cleanupOpen?.();
+    opened = false;
+    sync();
+    if (!lid || !boot || reducedMotion) {
+      // Sin animación (movimiento reducido): no hay eventos que esperar.
+      opened = true;
+      sync();
+      return;
+    }
+    const myCycle = ++cycle;
+    let lidDone = false;
+    let bootDone = false;
+    const check = () => {
+      if (myCycle !== cycle || !lidDone || !bootDone) return;
+      cleanupOpen?.();
+      opened = true;
+      sync();
+    };
+    const onLid = (e: TransitionEvent) => {
+      if (e.target === lid && e.propertyName === 'transform') { lidDone = true; check(); }
+    };
+    const onBoot = (e: AnimationEvent) => {
+      if (e.target === boot) { bootDone = true; check(); }
+    };
+    lid.addEventListener('transitionend', onLid);
+    boot.addEventListener('animationend', onBoot);
+    cleanupOpen = () => {
+      lid.removeEventListener('transitionend', onLid);
+      boot.removeEventListener('animationend', onBoot);
+      cleanupOpen = null;
+    };
+  };
+  // Cierre: pausa el video (conserva la posición) e invalida la apertura.
+  const onClose = () => {
+    cycle++;
+    cleanupOpen?.();
+    opened = false;
+    sync();
+  };
+
+  if (video) {
+    video.muted = true;
+    // Si algo lo pausa (teclas multimedia, sistema) mientras está abierto,
+    // se reanuda: el visitante no puede detener la demostración.
+    video.addEventListener('pause', () => {
+      if (opened && !document.hidden) play();
+    });
+    document.addEventListener('visibilitychange', sync);
+    // Precarga cuando la sección se acerca (el archivo pesa ~37 MB): así el
+    // primer fotograma ya está listo mientras el laptop se abre. Se observa
+    // el escenario (sin transform) y no el video: con la tapa cerrada
+    // (rotateX) el video no ocupa área y el observer no lo detectaría.
+    if ('IntersectionObserver' in window) {
+      const preloadIO = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          video.preload = 'auto';
+          video.load();
+          preloadIO.disconnect();
+        },
+        { rootMargin: '800px 0px' },
+      );
+      preloadIO.observe(stage ?? video);
+    } else {
+      video.preload = 'auto';
+    }
+  }
+
   if (stage) {
     // Mount: aplicar .pre para snap-hidden inmediato antes del primer paint
     stage.classList.add('pre');
@@ -606,15 +428,20 @@
         enterMargin: '0px',
         threshold: 0.2,
         exitMargin: '60px 0px 60px 0px',
-        onEnter: () => stage.classList.remove('pre', 'exiting'),
+        onEnter: () => {
+          stage.classList.remove('pre', 'exiting');
+          onOpenStart();
+        },
         onExit: () => {
           // Sólo animamos el cierre si ya se había abierto (skip primer render)
           if (!stage.classList.contains('pre')) stage.classList.add('exiting');
+          onClose();
         },
       });
     } else {
       // Fallback: mostrar inmediatamente sin observer
       stage.classList.remove('pre');
+      onOpenStart();
     }
   }
 </script>
